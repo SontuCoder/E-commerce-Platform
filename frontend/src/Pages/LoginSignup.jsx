@@ -13,14 +13,13 @@ const LoginSignup = () => {
     };
 
     return (
-        <div className="outer">
-            <div className={`container ${isSignUpActive ? 'right-panel-active' : ''}`}>
+        <div className={`container ${isSignUpActive ? 'right-panel-active' : ''}`}>
             {/* Sign Up Form */}
             <div className="form-container sign-up-container">
-                <form action="#">
+                <form action="#" id='form'>
                     <h1>Create Account</h1>
                     <input type="text" placeholder="Name" />
-                    <input type="number" min="0000000000" max="9999999999" placeholder='Mobile Number'/>
+                    <input type="number" min="0000000000" max="9999999999" placeholder="Mobile Number" />
                     <input type="email" placeholder="Email" />
                     <input type="password" placeholder="Password" />
                     <input type="text" placeholder="Confirm Password" />
@@ -57,7 +56,6 @@ const LoginSignup = () => {
                     </div>
                 </div>
             </div>
-        </div>
         </div>
     );
 };

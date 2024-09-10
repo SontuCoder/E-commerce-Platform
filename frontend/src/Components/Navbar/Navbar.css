@@ -5,6 +5,7 @@
     margin: 0;
 }
 
+
 .header {
     background-color: #131515;
     color: #FFF;
@@ -15,6 +16,7 @@
     font-style: italic;
     font-size: 40px;
     padding-top: 10px;
+    text-align: center;
 }
 .navbar {
     background-color: #082A30;
