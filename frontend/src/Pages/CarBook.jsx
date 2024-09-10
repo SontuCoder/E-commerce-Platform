@@ -1,11 +1,12 @@
 import React from 'react'
 
-const ShopCategory = () => {
+const CarBook= () => {
     return (
         <div>
-
+            Hi
         </div>
     )
 }
 
-export default ShopCategory;
+export default CarBook;
+

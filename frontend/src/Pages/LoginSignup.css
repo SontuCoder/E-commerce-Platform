@@ -1,0 +1,197 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+    background-color:#CCC9DC;
+    height: 101vh;
+}
+
+.outer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    background-color: #339989;
+    border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    position: relative;
+    overflow: hidden;
+    top: 10px;
+    width: 768px;
+    max-width: 100%;
+    min-height: 450px;
+}
+
+/* Form Containers */
+.form-container {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    transition: all 0.6s ease-in-out;
+}
+
+/* Sign In and Sign Up Containers */
+.sign-in-container {
+    left: 0;
+    width: 50%;
+    z-index: 2;
+}
+
+.sign-up-container {
+    left: 0;
+    width: 50%;
+    opacity: 0;
+    z-index: 1;
+}
+
+/* Overlay Effect */
+.container.right-panel-active .sign-up-container {
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
+}
+
+.container.right-panel-active .sign-in-container {
+    transform: translateX(100%);
+}
+
+/* Forms */
+#form {
+    background-color: #339989;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 50px;
+    height: 100%;
+    text-align: center;
+}
+
+#form h1 {
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+#form input {
+    background-color: #d9d9d9;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    font-weight: 700;
+    padding: 12px 15px;
+    margin: 8px 0;
+    width: 100%;
+}
+
+#form button {
+    border-radius: 20px;
+    border: 1px solid #fff;
+    background-color: #fff;
+    font-size: 15px;
+    font-weight: 800;
+    padding: 10px 45px;
+    letter-spacing: 1px;
+    transition: transform 80ms ease-in;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+/* Overlay Container */
+.overlay-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    transition: transform 0.6s ease-in-out;
+    z-index: 100;
+}
+
+/* Overlay */
+.overlay {
+    background-color: #d9d9d9;
+    position: absolute;
+    left: -100%;
+    height: 100%;
+    width: 200%;
+    transform: translateX(0);
+    transition: transform 0.6s ease-in-out;
+}
+
+.container.right-panel-active .overlay-container {
+    transform: translateX(-100%);
+}
+
+.container.right-panel-active .overlay {
+    transform: translateX(50%);
+
+}
+
+/* Overlay Panels */
+.overlay-panel {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    padding: 0 40px;
+    transition: transform 0.6s ease-in-out;
+}
+
+.overlay-panel p{
+    font-size: 15px;
+    font-weight: 700;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.overlay-left {
+    transform: translateX(-20%);
+}
+
+.overlay-right {
+    right: 0;
+    transform: translateX(0);
+}
+
+.container.right-panel-active .overlay-left {
+    transform: translateX(0);
+}
+
+.container.right-panel-active .overlay-right {
+    transform: translateX(20%);
+}
+
+
+
+/* Button on the overlay */
+button.ghost {
+    border-radius: 20px;
+    background-color: #339989;
+    border: 1px solid #339989;
+    outline: none;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 800;
+    padding: 10px 45px;
+    letter-spacing: 1px;
+    transition: transform 80ms ease-in;
+    margin-top: 10px;
+}
+
