@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Navbar from './Components/Navbar/Navbar.jsx'
-import { BrowserRouter,Routes,Route} from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Shop from "./Pages/Shop.jsx";
 import Cart from './Pages/Cart.jsx';
 import LoginSignup from './Pages/LoginSignup.jsx';
@@ -15,15 +15,108 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-      <Navbar/>
-      <Routes>
-        <Route path='/' element={<Shop/>}/>
-        <Route path='/car-booking' element={<CarBook/>}/>
-        <Route path='/contact' element={<Contact/>}/>
-        <Route path='/about' element={<About/>}/>
-        <Route path='/cart' element={<Cart/>}/>
-        <Route path='/loginsignup' element={<LoginSignup/>}/>
-      </Routes>
+        <Navbar />
+        <Routes>
+          <Route path='/' element={<Shop />} />
+          <Route path='/car-booking' element={<CarBook />} />
+          <Route path='/contact' element={<Contact />} />
+          <Route path='/about' element={<About />} />
+          <Route path='/cart' element={<Cart />} />
+          <Route path='/loginsignup' element={<LoginSignup />} />
+        </Routes>
+        <section id='home'>
+          <div className='itens-boxs'>
+            <div className='boxs'>
+              <div className='items'>
+                <img src={ }></img>
+              </div>
+              <div className='items'>
+                <img src={ }></img>
+              </div><div className='items'>
+                <img src={ }></img>
+              </div>
+              <div className='items'>
+                <img src={ }></img>
+              </div>
+            </div>
+
+            <div className='boxs'>
+              <div className='items'>
+                <img src={ }></img>
+              </div>
+              <div className='items'>
+                <img src={ }></img>
+              </div><div className='items'>
+                <img src={ }></img>
+              </div>
+              <div className='items'>
+                <img src={ }></img>
+              </div>
+            </div>
+
+            <div className='boxs'>
+              <div className='items'>
+                <img src={ }></img>
+              </div>
+              <div className='items'>
+                <img src={ }></img>
+              </div><div className='items'>
+                <img src={ }></img>
+              </div>
+              <div className='items'>
+                <img src={ }></img>
+              </div>
+            </div>
+
+            <div className='boxs'>
+              <div className='items'>
+                <img src={ }></img>
+              </div>
+              <div className='items'>
+                <img src={ }></img>
+              </div><div className='items'>
+                <img src={ }></img>
+              </div>
+              <div className='items'>
+                <img src={ }></img>
+              </div>
+            </div>
+
+            <div className='boxs'>
+              <div className='items'>
+                <img src={ }></img>
+              </div>
+              <div className='items'>
+                <img src={ }></img>
+              </div><div className='items'>
+                <img src={ }></img>
+              </div>
+              <div className='items'>
+                <img src={ }></img>
+              </div>
+            </div>
+
+            <div className='boxs'>
+              <div className='items'>
+                <img src={ }></img>
+              </div>
+              <div className='items'>
+                <img src={ }></img>
+              </div><div className='items'>
+                <img src={ }></img>
+              </div>
+              <div className='items'>
+                <img src={ }></img>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section id='offers'>
+          offers
+        </section>
+        <section id='last'>
+          last
+        </section>
       </BrowserRouter>
     </div>
   );

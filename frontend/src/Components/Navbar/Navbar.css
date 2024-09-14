@@ -9,13 +9,12 @@
 .header {
     background-color: #131515;
     color: #FFF;
-    height: 60px;
+    height: 50px;
     font-family: "Inter", sans-serif;
     font-optical-sizing: auto;
     font-weight: 800;
     font-style: italic;
     font-size: 40px;
-    padding-top: 10px;
     text-align: center;
 }
 .navbar {
