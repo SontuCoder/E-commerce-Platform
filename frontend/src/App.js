@@ -10,7 +10,6 @@ import Contact from './Pages/Contact.jsx';
 import CarBook from "./Pages/CarBook.jsx";
 
 
-
 function App() {
   return (
     <div className="App">
@@ -24,99 +23,6 @@ function App() {
           <Route path='/cart' element={<Cart />} />
           <Route path='/loginsignup' element={<LoginSignup />} />
         </Routes>
-        <section id='home'>
-          <div className='itens-boxs'>
-            <div className='boxs'>
-              <div className='items'>
-                <img src={ }></img>
-              </div>
-              <div className='items'>
-                <img src={ }></img>
-              </div><div className='items'>
-                <img src={ }></img>
-              </div>
-              <div className='items'>
-                <img src={ }></img>
-              </div>
-            </div>
-
-            <div className='boxs'>
-              <div className='items'>
-                <img src={ }></img>
-              </div>
-              <div className='items'>
-                <img src={ }></img>
-              </div><div className='items'>
-                <img src={ }></img>
-              </div>
-              <div className='items'>
-                <img src={ }></img>
-              </div>
-            </div>
-
-            <div className='boxs'>
-              <div className='items'>
-                <img src={ }></img>
-              </div>
-              <div className='items'>
-                <img src={ }></img>
-              </div><div className='items'>
-                <img src={ }></img>
-              </div>
-              <div className='items'>
-                <img src={ }></img>
-              </div>
-            </div>
-
-            <div className='boxs'>
-              <div className='items'>
-                <img src={ }></img>
-              </div>
-              <div className='items'>
-                <img src={ }></img>
-              </div><div className='items'>
-                <img src={ }></img>
-              </div>
-              <div className='items'>
-                <img src={ }></img>
-              </div>
-            </div>
-
-            <div className='boxs'>
-              <div className='items'>
-                <img src={ }></img>
-              </div>
-              <div className='items'>
-                <img src={ }></img>
-              </div><div className='items'>
-                <img src={ }></img>
-              </div>
-              <div className='items'>
-                <img src={ }></img>
-              </div>
-            </div>
-
-            <div className='boxs'>
-              <div className='items'>
-                <img src={ }></img>
-              </div>
-              <div className='items'>
-                <img src={ }></img>
-              </div><div className='items'>
-                <img src={ }></img>
-              </div>
-              <div className='items'>
-                <img src={ }></img>
-              </div>
-            </div>
-          </div>
-        </section>
-        <section id='offers'>
-          offers
-        </section>
-        <section id='last'>
-          last
-        </section>
       </BrowserRouter>
     </div>
   );

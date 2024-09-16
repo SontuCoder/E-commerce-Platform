@@ -68,8 +68,7 @@ const CarBook = () => {
 
     return (
         <div className="out">
-            <div
-                className="slide-container" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+            <div className="slide-container" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                 <div
                     className="slides"
                     style={{
