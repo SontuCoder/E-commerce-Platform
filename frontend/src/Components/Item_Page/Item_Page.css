@@ -1,0 +1,69 @@
+.item-page{
+    background-image: linear-gradient(#1A574D,#D9D9D9);
+    height: 90vh;
+    width: 100%;
+    padding-top: 30px;
+}
+
+.one-items{
+    background-color: #FFF;
+    width: 1000px;
+    display: flex;
+    position: relative;
+    left: 50%;
+    translate: -50%;
+    height: 350px;
+    padding: 25px;
+    gap: 50px;
+}
+.one-items .image{
+    height: 300px;
+    object-fit: fill;
+    width: 300px;
+}
+
+.one-items .image img{
+    width: 100%;
+    height: 100%;
+}
+
+.descr h4{
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.descr p{
+    font-weight: 800;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.descr .old-price{
+    color: rgb(95, 94, 94);
+    font-size: 15px;
+    text-decoration: line-through;
+    font-weight: 600;
+}
+
+.descr .button{
+    display: flex;
+    flex-direction: column;
+}
+
+.addCart, .addOrder{
+    width: 250px;
+    height: 50px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    color: black;
+    border-radius: 30px;
+}
+
+.descr .button .addCart{
+    background-color: rgb(244, 153, 49);
+}
+.descr .button .addOrder{
+    background-color: #34897b;
+}

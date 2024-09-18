@@ -25,8 +25,10 @@ const Item = ({ id }) => {
                         <p>Price: ₹<span>{new_price}</span></p> 
                         <p className="old-price">M.R.P: {old_price}</p>
                     </div>
-                    <Link className='addButton'>Add to Cart</Link>
-                    <Link className='addButton'>Order Now</Link>
+                    <div className="item-button">
+                        <Link className='addButton'>Add to Cart</Link>
+                        <Link className='addButton'>Order Now</Link>
+                    </div>
                 </div>
             </section>
         </div>

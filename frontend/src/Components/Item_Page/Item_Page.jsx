@@ -17,16 +17,18 @@ const Item_Page = () => {
 
     return (
         <div className='item-page'>
-            <div className="item">
+            <div className="one-items">
                 <div className="image">
                     <img src={image} alt={ describe } />
                 </div>
-                <div className='desc'>
+                <div className='descr'>
                     <h4>{describe}</h4>
                     <p>Price: ₹<span>{new_price}</span></p> 
                     <p className="old-price">M.R.P: {old_price}</p>
-                    <Link className='addButton'>Add to Cart</Link>
-                    <Link className='addButton'>Add to Cart</Link>
+                    <div className="button">
+                    <Link className='addCart'>Add to Cart</Link>
+                    <Link className='addOrder'>Order</Link>
+                    </div>
                 </div>
             </div>
         </div>

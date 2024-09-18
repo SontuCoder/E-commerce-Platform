@@ -38,8 +38,12 @@
     color: rgb(69, 68, 68);
     text-decoration: line-through;
 }
-
-.cart-list .item .addButton{
+.cart-list .item .item-button{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.cart-list .item .item-button .addButton{
     color: black;
     height: 40px;
     padding: 10px;

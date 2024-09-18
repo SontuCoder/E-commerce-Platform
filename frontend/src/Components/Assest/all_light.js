@@ -330,8 +330,8 @@ import tv2_img from "./tv2.jpeg";
 
 
 let all_light = [
+    // Bulb
     {
-        // Bulb
         id: 1,
         name: "Inverter LED Bulb",
         catagori: "Bulb",
