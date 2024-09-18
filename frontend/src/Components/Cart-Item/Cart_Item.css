@@ -47,3 +47,6 @@
     border-radius: 5px;
     transition: transform 0.3s ease;
 }
+.deleteButton:hover{
+    transform: scale(1.1);
+}

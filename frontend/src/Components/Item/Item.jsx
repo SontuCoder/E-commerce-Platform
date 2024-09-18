@@ -17,7 +17,7 @@ const Item = ({ id }) => {
         <div>
             <section className='cart-list'>
                 <div className="item">
-                    <Link> 
+                    <Link to={`/item_page/${id}`}> 
                         <img src={image} alt={name} />
                     </Link>
                     <div className="decs">
@@ -26,6 +26,7 @@ const Item = ({ id }) => {
                         <p className="old-price">M.R.P: {old_price}</p>
                     </div>
                     <Link className='addButton'>Add to Cart</Link>
+                    <Link className='addButton'>Order Now</Link>
                 </div>
             </section>
         </div>

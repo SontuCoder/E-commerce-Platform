@@ -34,9 +34,8 @@ import CarBook from "../Components/Assest/icon/carBook.png";
 import Logo from "../Components/Assest/icon/2-removebg-preview.png";
 
 
-
 const Shop = () => {
-
+        
         const slides = [Off1, Off2,Off3]; // Array of slide images
         const [activeSlide, setActiveSlide] = useState(1); // Start from 1 (second slide)
         const [isTransitioning, setIsTransitioning] = useState(false); // To handle smooth transitions
@@ -98,13 +97,14 @@ const Shop = () => {
         const handleMouseLeave = () => {
             setIsPaused(false); // Resume auto-slide on mouse leave
         };
+
     
     return (
         <div className='shop'>
             <section id='home'>
                 <div className='items-boxs'>
                     <div className='boxs'>
-                        <Link className='items'>
+                        <Link className='items' to="/bulb">
                             <img src={Bulb}></img>
                         </Link>
                         <Link className='items'>
@@ -119,7 +119,7 @@ const Shop = () => {
                     </div>
 
                     <div className='boxs'>
-                        <Link className='items'>
+                        <Link className='items' >
                             <img src={Co}></img>
                         </Link>
                         <Link className='items'>
@@ -269,7 +269,6 @@ const Shop = () => {
                     <p>Maintaining by "Maity Brother's"</p>
                 </div>
             </section>
-            
         </div>
     )
 }
