@@ -22,8 +22,8 @@ section{
 }
 
 .boxs{
-    height:300px;
-    width: 300px;
+    height:380px;
+    width: 380px;
     background-color: #fff;
     display: grid;
     grid-template-columns: auto auto;
@@ -32,13 +32,13 @@ section{
 }
 
 .items{
-    height: 120px;
-    width: 120px;
+    height: 160px;
+    width: 160px;
 }
 
 .items img{
-    height: 120px;
-    width: 120px;
+    height: 160px;
+    width: 160px;
 }
 
 #offers .slide-container {
@@ -72,7 +72,7 @@ section{
 }
 
 #car-book-sec .left,#car-book-sec .right{
-    height: 250px;
+    height: 310px;
     box-shadow: 0 0 8px 2px rgba(0, 0, 0, 1);
 }
 
@@ -81,7 +81,7 @@ section{
 }
 
 .carBooking img{
-    height: 250px;
+    height: 350px;
     width: 100%;
     box-shadow: 0 0 8px 2px rgba(0, 0, 0, 1);
 }
@@ -100,6 +100,16 @@ section{
     background-color: #325B74;
     color: #FFF;
 }
+#last #upButton p{
+    transition: transform 0.3s ease;
+}
+
+
+#last #upButton p:hover{
+    color: #7DE2D1;
+    text-decoration: underline;
+    transform: scale(1.1);
+}
 
 #last #mid{
     display: flex;
@@ -112,13 +122,13 @@ section{
 }
 
 #first h5, #second h5, #third h5{
-    font-weight: 900;
-    margin-bottom: 10px;
+    font-weight: 1000;
+    margin-bottom: 20px;
 }
 
 #first p, #second p, #third p{
     font-size: 10px;
-    margin: 3px;
+    margin: 5px;
     font-weight: 600;
 }
 

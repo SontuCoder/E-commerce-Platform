@@ -1,30 +1,30 @@
 import React,{useCallback, useState,useEffect} from 'react'
 import './Shop.css';
 import { Link } from 'react-router-dom';
-import Bulb from '../Components/Assest/bulb/b6.jpeg';
-import Cl from "../Components/Assest/Celling light/cl12.jpeg";
-import Ch from "../Components/Assest/chain Light/ch7.jpeg";
-import Cv from "../Components/Assest/Cove light/cv4.jpeg";
-import Co from "../Components/Assest/cooler/co10.jpeg";
-import Cf from "../Components/Assest/Fan/f6.jpeg";
-import Tf from "../Components/Assest/Fan/f13.jpeg";
-import Me from "../Components/Assest/miror/m1.jpeg";
-import Mix from "../Components/Assest/mixcher/mx1.jpeg";
-import Neo1 from "../Components/Assest/neon light/n22.jpeg";
-import Neo2 from "../Components/Assest/neon light/n1.jpeg";
-import Sl1 from "../Components/Assest/serface light/sl4.jpeg";
-import Sw from "../Components/Assest/Switch bord/sw17.jpeg";
-import Tl1 from "../Components/Assest/table light/tl2.jpeg";
-import Tl2 from "../Components/Assest/table light/tl6.jpeg";
-import Tar from "../Components/Assest/tar/t6.jpeg";
-import Tube from "../Components/Assest/tube/tu2.jpeg";
-import Wl1 from "../Components/Assest/wall light/wl3.jpeg";
-import Wl2 from "../Components/Assest/wall light/wl17.jpeg";
-import Tv from "../Components/Assest/TV/tv1.jpeg";
-import Eq1 from "../Components/Assest/Equb/eq7.jpeg";
-import Eq2 from "../Components/Assest/Equb/eq16.jpeg";
-import Eq3 from "../Components/Assest/Equb/eq11.jpeg";
-import Eq4 from "../Components/Assest/Equb/eq15.jpeg";
+import Bulb from '../Components/Assest/b6.jpeg';
+import Cl from "../Components/Assest/cl12.jpeg";
+import Ch from "../Components/Assest/ch7.jpeg";
+import Cv from "../Components/Assest/cv4.jpeg";
+import Co from "../Components/Assest/co10.jpeg";
+import Cf from "../Components/Assest/f6.jpeg";
+import Tf from "../Components/Assest/f13.jpeg";
+import Me from "../Components/Assest/m1.jpeg";
+import Mix from "../Components/Assest/mx1.jpeg";
+import Neo1 from "../Components/Assest/n22.jpeg";
+import Neo2 from "../Components/Assest/n1.jpeg";
+import Sl1 from "../Components/Assest/sl4.jpeg";
+import Sw from "../Components/Assest/sw17.jpeg";
+import Tl1 from "../Components/Assest/tl2.jpeg";
+import Tl2 from "../Components/Assest/tl6.jpeg";
+import Tar from "../Components/Assest/t6.jpeg";
+import Tube from "../Components/Assest/tu2.jpeg";
+import Wl1 from "../Components/Assest/wl3.jpeg";
+import Wl2 from "../Components/Assest/wl17.jpeg";
+import Tv from "../Components/Assest/tv1.jpeg";
+import Eq1 from "../Components/Assest/eq7.jpeg";
+import Eq2 from "../Components/Assest/eq16.jpeg";
+import Eq3 from "../Components/Assest/eq11.jpeg";
+import Eq4 from "../Components/Assest/eq15.jpeg";
 import Off1 from "../Components/Assest/icon/off1.jpg";
 import Off2 from "../Components/Assest/icon/12-10-2024.png";
 import Off3 from "../Components/Assest/icon/off3.jpg";
@@ -248,18 +248,18 @@ const Shop = () => {
                 </Link>
                 <div id='mid'>
                     <div id="first">
-                        <h5>Connect With Us</h5>
+                        <h3>Connect With Us</h3>
                         <p>Fackbook</p>
                         <p>Instagram</p>
                     </div>
                     <div id="second">
-                        <h5>Our Services</h5>
+                        <h3>Our Services</h3>
                         <p>Electronic Product sells</p>
                         <p>Travels</p>
                         <p>Electical Work</p>
                     </div>
                     <div id="third">
-                        <h5>Let us Help You</h5>
+                        <h3>Let us Help You</h3>
                         <p>Your Account</p>
                         <p>Help Lines</p>
                     </div>

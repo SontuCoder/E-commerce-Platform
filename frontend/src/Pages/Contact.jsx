@@ -20,7 +20,7 @@ function Contact() {
                         <br />
                         <textarea name="message" id="message" cols="40" rows="10" placeholder="Enter Your Message"></textarea>
                         <br />
-                        <input type="submit" value="Submit" className="send" id='button' />
+                        <input type="submit" value="Submit" className="send" id='contact-button' />
                     </form>
                 </div>
             </div>

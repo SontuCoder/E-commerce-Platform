@@ -1,9 +1,10 @@
+.cart{
+    padding-top: 20px;
+    height: 100%;
+    background-image: linear-gradient(#1A574D,#D9D9D9);
+}
 .total{
     background-color: rgba(204, 203, 203, 0.995);
-}
-
-.item{
-    background-color: #FFF;
 }
 
 .total{
@@ -28,7 +29,7 @@
 }
 
 .total-left span{
-    margin-left: 50px;
+    margin-left: 30px;
 }
 
 .total-right{
@@ -43,41 +44,6 @@
     transition: transform 0.3s ease;
 }
 
-.total-right:hover, .cart-list .item .deleteButton:hover{
+.total-right:hover{
     transform: scale(1.1);
-}
-
-.cart-list{
-    height: 200px;
-}
-.cart-list .item{
-    display: flex;
-    align-items: center;
-    padding: 20px;
-    gap: 50px;
-}
-.cart-list .item img{
-    height: 160px;
-}
-
-.cart-list .decs {
-    width: 400px;
-}
-
-.cart-list .item .decs h4{
-    font-size: 20px;
-    font-weight: 800;
-}
-
-.cart-list .item .decs p{
-    font-weight: 700;
-}
-
-.cart-list .item .deleteButton{
-    color: black;
-    height: 40px;
-    padding: 10px;
-    background-color: #339989;
-    border-radius: 5px;
-    transition: transform 0.3s ease;
 }

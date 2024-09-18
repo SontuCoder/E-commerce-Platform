@@ -116,6 +116,9 @@ span.past:hover, span.next:hover {
     outline: none;
     border: none;
 }
+#car-button{
+    transition: transform 0.3s ease;
+}
 
 #car-button:hover{
     background-color: #67ddcba9;
