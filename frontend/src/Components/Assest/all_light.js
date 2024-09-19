@@ -318,11 +318,11 @@ import sl12_img from "./sl12.jpeg";
 import sl13_img from "./sl13.jpeg";
 
 //Tube Light
-import tu1_img from "./t1.jpeg";
-import tu2_img from "./t2.jpeg";
-import tu3_img from "./t3.jpeg";
-import tu4_img from "./t4.jpeg";
-import tu5_img from "./t5.jpeg";
+import tu1_img from "./tu1.jpeg";
+import tu2_img from "./tu2.jpeg";
+import tu3_img from "./tu3.jpeg";
+import tu4_img from "./tu4.jpeg";
+import tu5_img from "./tu5.jpeg";
 
 //Tv
 import tv1_img from "./tv1.jpeg";
@@ -949,7 +949,7 @@ let all_light = [
     {
         id: 76,
         name: "Glass Tube light",
-        catagori: "Serface Light",
+        catagori: "Tube Light",
         image: tu1_img,
         new_price: 226.00,
         old_price: 263.00,
@@ -957,7 +957,7 @@ let all_light = [
     {
         id: 77,
         name: "Two Head Tube light",
-        catagori: "Serface Light",
+        catagori: "Tube Light",
         image: tu2_img,
         new_price: 293.00,
         old_price: 249.00,
@@ -965,7 +965,7 @@ let all_light = [
     {
         id: 78,
         name: "Hunging Tube light",
-        catagori: "Serface Light",
+        catagori: "Tube Light",
         image: tu3_img,
         new_price: 226.00,
         old_price: 266.00,
@@ -973,7 +973,7 @@ let all_light = [
     {
         id: 79,
         name: "White Tube light",
-        catagori: "Serface Light",
+        catagori: "Tube Light",
         image: tu4_img,
         new_price: 299.00,
         old_price: 289.00,

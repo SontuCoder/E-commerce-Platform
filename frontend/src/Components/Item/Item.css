@@ -6,7 +6,7 @@
     display: flex;
     align-items: center;
     padding: 20px;
-    gap: 50px;
+    justify-content: space-between;
     width: 700px;
     background-color: #FFF;
     position: relative;
@@ -46,7 +46,10 @@
 .cart-list .item .item-button .addButton{
     color: black;
     height: 40px;
-    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
     background-color: #339989;
     border-radius: 5px;
     transition: transform 0.3s ease;

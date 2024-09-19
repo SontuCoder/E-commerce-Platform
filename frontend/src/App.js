@@ -10,6 +10,7 @@ import Contact from './Pages/Contact.jsx';
 import CarBook from "./Pages/CarBook.jsx";
 import Bulb from './Pages/Item_Render_Page/Bulb.jsx';
 import Item_Page from './Components/Item_Page/Item_Page.jsx';
+import Order from './Pages/Order.jsx';
 
 function App() {
   return (
@@ -23,8 +24,9 @@ function App() {
           <Route path='/about' element={<About />} />
           <Route path='/cart' element={<Cart />} />
           <Route path='/loginsignup' element={<LoginSignup />} />
-          <Route path="/bulb" element={<Bulb/>} /> 
+          <Route path="/bulb/:catagori" element={<Bulb/>} /> 
           <Route path='/item_page/:id' element={<Item_Page/>} />
+          <Route path='/order/:id' element={<Order/>} />
         </Routes>
       </BrowserRouter>
     </div>

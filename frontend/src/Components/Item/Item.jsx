@@ -5,7 +5,7 @@ import all_light from '../Assest/all_light'; // Import the array of products
 
 const Item = ({ id }) => {
     // Find the item with the corresponding ID
-    const item = all_light.find(light => light.id === id);
+    const item = all_light.find(item => item.id === id);
 
     if (!item) {
         return <p>Item not found</p>; // Handle case where the item doesn't exist
@@ -27,7 +27,7 @@ const Item = ({ id }) => {
                     </div>
                     <div className="item-button">
                         <Link className='addButton'>Add to Cart</Link>
-                        <Link className='addButton'>Order Now</Link>
+                        <Link className='addButton' to={`/order/${id}`}>Order Now</Link>
                     </div>
                 </div>
             </section>

@@ -27,7 +27,7 @@ const Item_Page = () => {
                     <p className="old-price">M.R.P: {old_price}</p>
                     <div className="button">
                     <Link className='addCart'>Add to Cart</Link>
-                    <Link className='addOrder'>Order</Link>
+                    <Link className='addOrder' to={`/order/${id}`}>Order</Link>
                     </div>
                 </div>
             </div>
