@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import './LoginSignup.css';
+import axios from 'axios';
+import {useNavigate} from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const LoginSignup = () => {
     const [isSignUpActive, setIsSignUpActive] = useState(false);
@@ -12,20 +15,48 @@ const LoginSignup = () => {
         setIsSignUpActive(false);
     };
 
+    const [name,setName]=useState();
+    const [email,setEmail]=useState();
+    const [number,setNumber]=useState();
+    const [password,setPassword]=useState();
+    const [confirmpassword,setConfirmpassword]=useState();
+
+
+    const navigate = useNavigate();
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        axios.post('http://localhost:4000/register', {
+            username: name,
+            email,
+            mobile: number,
+            password,
+        })
+        .then(result => {
+            console.log(result);
+            toast.success('New user added successfully!', { position: "top-right" });
+            // navigate("/");
+        })
+        .catch(err => {console.log(err);
+            toast.error('Error', { position: "top-right" });
+            // navigate("/");
+        });
+    };
+
     return (
 
         <div>
             <div className={`container ${isSignUpActive ? 'right-panel-active' : ''}`}>
                 {/* Sign Up Form */}
                 <div className="form-container sign-up-container">
-                    <form action="#" id='form'>
+                    <form id='form' onSubmit={handleSubmit}>
                         <h1>Create Account</h1>
-                        <input type="text" placeholder="Name" />
-                        <input type="number" min="0000000000" max="9999999999" placeholder="Mobile Number" />
-                        <input type="email" placeholder="Email" />
-                        <input type="password" placeholder="Password" />
-                        <input type="text" placeholder="Confirm Password" />
-                        <button>Sign Up</button>
+                        <input type="text" placeholder="Name" onChange={(e)=> setName(e.target.value)}/>
+                        <input type="number" min="0000000000" max="9999999999" placeholder="Mobile Number" onChange={(e)=> setNumber(e.target.value)}/>
+                        <input type="email" placeholder="Email" onChange={(e)=> setEmail(e.target.value)} />
+                        <input type="password" placeholder="Password" onChange={(e)=> setPassword(e.target.value)}/>
+                        <input type="text" placeholder="Confirm Password" onChange={(e)=> setConfirmpassword(e.target.value)} />
+                        <button type="submit">Sign Up</button>
                     </form>
                 </div>
 
@@ -35,7 +66,7 @@ const LoginSignup = () => {
                         <h1>Sign In</h1>
                         <input type="email" placeholder="Email" />
                         <input type="password" placeholder="Password" />
-                        <button>Sign In</button>
+                        <button type="submit">Sign In</button>
                     </form>
                 </div>
 

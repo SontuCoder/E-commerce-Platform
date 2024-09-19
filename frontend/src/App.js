@@ -11,6 +11,8 @@ import CarBook from "./Pages/CarBook.jsx";
 import Bulb from './Pages/Item_Render_Page/Bulb.jsx';
 import Item_Page from './Components/Item_Page/Item_Page.jsx';
 import Order from './Pages/Order.jsx';
+import { Toaster } from 'react-hot-toast';
+
 
 function App() {
   return (
@@ -27,6 +29,7 @@ function App() {
           <Route path="/bulb/:catagori" element={<Bulb/>} /> 
           <Route path='/item_page/:id' element={<Item_Page/>} />
           <Route path='/order/:id' element={<Order/>} />
+          <Toaster/>
         </Routes>
       </BrowserRouter>
     </div>
