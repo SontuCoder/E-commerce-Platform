@@ -5,11 +5,16 @@
     width: 500px;
     position:relative;
     left: 50%;
-    top: 30px;
+    top: 10px;
     translate: -50%;
     background-color: #FFF;
     padding: 20px;
-    height: 500px;
+}
+
+.order-page{
+    height: 100%;
+    background-image: linear-gradient(#1A574D,#D9D9D9);
+    padding-bottom: 30px;
 }
 
 .order-form h2{
@@ -25,13 +30,46 @@
     padding-bottom: 10px;
 }
 .order-form input{
-    height: 50px;
+    height: 40px;
     background-color: #d9d9d9;
     padding-left: 20px;
-    font-size: 20px;
+    font-size: 15px;
     font-weight: 600;
     margin-bottom: 20px;
     border: none;
     outline: none;
     border-radius: 5px;
 }
+.order-form textarea{
+    width: 100%;
+    height: 70px;
+    background-color: #d9d9d9;
+    margin-bottom: 20px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+}
+
+.order-form .order, .order-form .cancel{
+    background-color: #339989;
+    height: 50px;
+    border-radius: 5px;
+    border: 2px solid black;
+    transition: transform 0.3s ease;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.order-form .order:hover, .order-form .cancel:hover{
+    transform: scale(1.05);
+}
+.order-form .cancel{
+    align-items: center;
+    color: black;
+    display: flex;
+    justify-content: center;
+    transition: transform 0.3s ease;
+    background-color: rgb(239, 214, 89);
+    margin-top: 20px;
+}
+

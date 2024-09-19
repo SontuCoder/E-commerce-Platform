@@ -4,6 +4,7 @@ import './Cart.css';
 import all_light from '../Components/Assest/all_light'; // Ensure the path is correct
 import Cart_Item from "../Components/Cart-Item/Cart_Item.jsx";
 
+
 const Cart = () => {
     return (
         <div className='cart'>
@@ -18,7 +19,7 @@ const Cart = () => {
                         {all_light.reduce((total, item) => total + item.new_price, 0).toFixed(2)}
                     </span></p> {/* Dynamic total cost */}
                 </div>
-                <Link to="/checkout" className='total-right'>
+                    <Link to={`/order/${3}`} className='total-right'>
                     Order
                 </Link> 
             </section>
