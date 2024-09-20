@@ -22,6 +22,9 @@ const user = new mongoose.Schema({
         type: String,
         required: true,
         minlength: 8,
+    },
+    cartData:{
+        type: Object,
     }
 });
 

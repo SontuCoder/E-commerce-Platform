@@ -4,16 +4,21 @@ import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
 import toast from 'react-hot-toast';
 
+
 const LoginSignup = () => {
     const [isSignUpActive, setIsSignUpActive] = useState(false);
+
 
     const handleSignUpClick = () => {
         setIsSignUpActive(true);
     };
 
+
     const handleSignInClick = () => {
         setIsSignUpActive(false);
     };
+
+    //Sign up handle
 
     const [name,setName]=useState();
     const [email,setEmail]=useState();
@@ -21,27 +26,77 @@ const LoginSignup = () => {
     const [password,setPassword]=useState();
     const [confirmpassword,setConfirmpassword]=useState();
 
-
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (!name || !email || !number || !password || !confirmpassword) {
+            toast.error('All fields are required', { position: 'top-right' });
+            return;
+        }
+        if (number.length !== 10) {
+            toast.error('Mobile number must be exactly 10 digits', { position: "top-right" });
+            return;
+        }
+        if(password !== confirmpassword){
+            toast.error("Password and Confirm Password must be same.", {position: "top-right"});
+            return;
+        }
+        if(password.length <8 ){
+            toast.error("Password must be longer then 8", {position: "top-right"});
+            return;
+        }
+
         axios.post('http://localhost:4000/register', {
             username: name,
             email,
             mobile: number,
             password,
         })
-        .then(result => {
-            console.log(result);
-            toast.success('New user added successfully!', { position: "top-right" });
-            // navigate("/");
+        .then(response => {
+            const result = response.data;
+            if (result.success) {
+                toast.success(result.message, { position: 'top-right' });
+                setName('');
+                setEmail('');
+                setNumber('');
+                setPassword('');
+                setConfirmpassword('');
+                navigate('/');  
+            } else {
+                toast.error(result.message, { position: 'top-right' });
+            }
         })
-        .catch(err => {console.log(err);
-            toast.error('Error', { position: "top-right" });
-            // navigate("/");
+        .catch(err => {
+            console.error(err);
+            toast.error('An error occurred, please try again.', { position: 'top-right' });
         });
     };
+
+
+    //Login Handle
+
+    const [email_in, checkEmail] = useState('');
+    const [password_in, checkPass] = useState('');
+
+    const handleSignIn = (e) => {
+        e.preventDefault();
+        axios.post("http://localhost:4000/login", { email: email_in, password: password_in })
+            .then(response => {
+                const result = response.data;
+                if (result.success) {
+                    toast.success(result.message, { position: 'top-right' });
+                    navigate('/');  
+                } else {
+                    toast.error(result.message, { position: 'top-right' });
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                toast.error('An error occurred, please try again.', { position: 'top-right' });
+            });
+    }
+
 
     return (
 
@@ -62,10 +117,10 @@ const LoginSignup = () => {
 
                 {/* Sign In Form */}
                 <div className="form-container sign-in-container">
-                    <form action="#" id='form'>
+                    <form id='form' onSubmit={handleSignIn}>
                         <h1>Sign In</h1>
-                        <input type="email" placeholder="Email" />
-                        <input type="password" placeholder="Password" />
+                        <input type="email" placeholder="Email" onChange={(e)=> checkEmail(e.target.value)}/>
+                        <input type="password" placeholder="Password" onChange={(e)=> checkPass(e.target.value)}/>
                         <button type="submit">Sign In</button>
                     </form>
                 </div>

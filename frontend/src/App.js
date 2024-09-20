@@ -19,6 +19,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Navbar />
+        <Toaster position="top-right" reverseOrder={false} />
         <Routes>
           <Route path='/' element={<Shop />} />
           <Route path='/car-booking' element={<CarBook />} />
@@ -29,8 +30,7 @@ function App() {
           <Route path="/bulb/:catagori" element={<Bulb/>} /> 
           <Route path='/item_page/:id' element={<Item_Page/>} />
           <Route path='/order/:id' element={<Order/>} />
-          <Toaster/>
-        </Routes>
+          </Routes>
       </BrowserRouter>
     </div>
   );
