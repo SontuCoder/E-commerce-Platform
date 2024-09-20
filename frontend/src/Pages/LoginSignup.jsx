@@ -56,6 +56,7 @@ const LoginSignup = () => {
         .then(response => {
             const result = response.data;
             if (result.success) {
+                localStorage.setItem('auth-token', result.token);
                 toast.success(result.message, { position: 'top-right' });
                 setName('');
                 setEmail('');
@@ -85,6 +86,8 @@ const LoginSignup = () => {
             .then(response => {
                 const result = response.data;
                 if (result.success) {
+                    console.log("Token:", result.token);
+                    localStorage.setItem('auth-token', result.token);
                     toast.success(result.message, { position: 'top-right' });
                     navigate('/');  
                 } else {

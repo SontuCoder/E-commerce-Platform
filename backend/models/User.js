@@ -23,8 +23,10 @@ const user = new mongoose.Schema({
         required: true,
         minlength: 8,
     },
-    cartData:{
-        type: Object,
+    cartData:
+    {
+        type: [Number],
+        default:[]
     }
 });
 
