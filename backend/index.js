@@ -8,6 +8,7 @@ import jwt from "jsonwebtoken";
 const app = express();
 
 import "./Db/dbConnection.js";
+import all_light from "../frontend/src/Components/Assest/all_light.js";
 
 app.use(express.json());
 app.use(cors());
@@ -133,7 +134,6 @@ app.post('/addtocart', async (req, res) => {
     try {
         const verified = jwt.verify(token, 'secret_ecom');
         const userId = verified.user.id;
-
         let user = await userModel.findById(userId);
         if (!user) {
             return res.status(404).json({ success: false, message: "User not found" });
@@ -146,6 +146,58 @@ app.post('/addtocart', async (req, res) => {
         res.status(500).json({ success: false, message: "Server error" });
     }
 });
+
+//get Cart list
+app.get('/cartlist', async (req, res) => {
+    const token = req.header('auth-token');
+    if(!token){
+        return res.json({ success: false, message: 'Login first' });
+    }
+    try {
+        const verified = jwt.verify(token, 'secret_ecom');
+        const userId = verified.user.id;
+        const user = await userModel.findById(userId);
+        if(!user){
+            return res.json({ success: false, message: 'No user is found' });
+        }
+        const cartItems = user.cartData;
+        if (cartItems.length > 0) {
+            return res.json({ success: true, cart: cartItems });
+        } else {
+            return res.json({ success: false, message: 'No items in the cart' });
+        }
+    } catch (err) {
+        console.error('Error fetching cart items:', err);
+        res.status(500).json({ success: false, message: 'Server error' });
+    }
+});
+
+// delete from cart
+app.post('/deleteitemcart', async(req,res)=>{
+    const {itemId} = req.body;
+    const itemInAll= all_light.findById({itemId});
+    const token = req.header('auth-token');
+    if(!token){
+        return res.json({ success: false, message: 'Login first' });
+    }
+    try {
+        const verified = jwt.verify(token, 'secret_ecom');
+        const userId = verified.user.id;
+        const user = await userModel.findById(userId);
+        if(!user){
+            return res.json({ success: false, message: 'No user is found' });
+        }
+        const cartItems = user.cartData;
+        const itemInCart = cartItems.includes(itemId);
+        if(!itemInAll || !itemInCart){
+            return res.json({ success: false, message: 'No item is found' });
+        }
+        
+} catch(err){
+    return res.json({ success: false, message: err });
+}
+})
+
 
 
 app.listen(port, (error) => {
