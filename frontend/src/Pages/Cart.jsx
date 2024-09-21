@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './Cart.css';
 import Cart_Item from "../Components/Cart-Item/Cart_Item.jsx";
 import toast from 'react-hot-toast';
 import axios from 'axios';
+import all_light from '../Components/Assest/all_light.js';
+
 
 const Cart = () => {
     const [itemArray, setItemArray] = useState([]); 
+    const [cartItems, setCartItems] = useState([]); // Holds the complete item data
     const [totalCost, setTotalCost] = useState(0);  
     const navigate = useNavigate();                
 
@@ -26,13 +29,8 @@ const Cart = () => {
                 });
 
                 if (response.data.success) {
-                    const cartItems = response.data.cart;
-                    setItemArray(cartItems); 
-                    
-                    const total = cartItems.reduce((total, item) => total + item.new_price, 0);
-                    setTotalCost(total); 
-                    
-                    toast.success("Cart items loaded successfully", { position: 'top-right' });
+                    const cartItemIds = response.data.cart; // Assuming this returns an array of item IDs
+                    setItemArray(cartItemIds); 
                 } else {
                     toast.error(response.data.message, { position: 'top-right' });
                 }
@@ -44,23 +42,35 @@ const Cart = () => {
         fetchCart();
     }, []); 
 
-    const groupItemsById = (itemIds) => {
-        const groupedItems = {};
-        itemIds.forEach(id => {
-            if (groupedItems[id]) {
-                groupedItems[id].quantity += 1;
-            } else {
-                groupedItems[id] = { _id: id, quantity: 1 }; 
-            }
-        });
-        return Object.values(groupedItems); 
-    };
-    
-    const groupedItems = groupItemsById(itemArray);
-    console.log("Grouped Items: ", groupedItems);
+    useEffect(() => {
+        // Group items by ID and get full details
+        const groupItemsById = (itemIds) => {
+            const groupedItems = {};
+            itemIds.forEach(id => {
+                if (groupedItems[id]) {
+                    groupedItems[id].quantity += 1; // Increase quantity for duplicates
+                } else {
+                    const itemDetails = all_light.find(item => item.id === id);
+                    if (itemDetails) {
+                        groupedItems[id] = { ...itemDetails, quantity: 1 };
+                    }
+                }
+            });
+            return Object.values(groupedItems); 
+        };
+        
+        if (itemArray.length > 0) {
+            const groupedItems = groupItemsById(itemArray);
+            setCartItems(groupedItems);
+            
+            // Calculate total cost
+            const total = groupedItems.reduce((acc, item) => acc + (item.new_price * item.quantity), 0);
+            setTotalCost(total);
+        }
+    }, [itemArray]); // Update when itemArray changes
 
     const handleOrder = () => {
-        const itemIds = groupedItems.map(item => ({
+        const itemIds = cartItems.map(item => ({
             id: item.id, 
             quantity: item.quantity
         }));
@@ -84,7 +94,7 @@ const Cart = () => {
                         {totalCost.toFixed(2)}
                     </span></p> 
                 </div>
-                {groupedItems.length > 0 && (
+                {cartItems.length > 0 && (
                     <button 
                         onClick={handleOrder} 
                         className='total-right'
@@ -95,10 +105,10 @@ const Cart = () => {
             </section>
 
             {
-                groupedItems.map((item) => (
+                cartItems.map((item) => (
                     <Cart_Item 
                         key={item.id} 
-                        id={item._id} 
+                        id={item.id} 
                         qty={item.quantity} 
                     />
                 ))

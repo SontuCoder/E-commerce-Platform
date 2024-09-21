@@ -8,10 +8,10 @@ import jwt from "jsonwebtoken";
 const app = express();
 
 import "./Db/dbConnection.js";
-import all_light from "../frontend/src/Components/Assest/all_light.js";
 
 app.use(express.json());
 app.use(cors());
+
 
 app.get("/", (req, res) => {
     res.send("Wellcome Bady");
@@ -175,8 +175,8 @@ app.get('/cartlist', async (req, res) => {
 // delete from cart
 app.post('/deleteitemcart', async(req,res)=>{
     const {itemId} = req.body;
-    const itemInAll= all_light.findById({itemId});
     const token = req.header('auth-token');
+    console.log(token);
     if(!token){
         return res.json({ success: false, message: 'Login first' });
     }
@@ -189,15 +189,19 @@ app.post('/deleteitemcart', async(req,res)=>{
         }
         const cartItems = user.cartData;
         const itemInCart = cartItems.includes(itemId);
-        if(!itemInAll || !itemInCart){
+        if(!itemInCart){
             return res.json({ success: false, message: 'No item is found' });
         }
-        
+        const itemIndex = cartItems.indexOf(itemId);
+        cartItems.splice(itemIndex, 1);
+
+        user.cartData = cartItems;
+        await user.save();
+        return res.json({ success: true, message: "Item delete from cart successfully." });
 } catch(err){
     return res.json({ success: false, message: err });
 }
-})
-
+});
 
 
 app.listen(port, (error) => {

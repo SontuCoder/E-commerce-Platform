@@ -3,26 +3,24 @@ import "./Navbar.css";
 import logo from "../Assest/icon/2-removebg-preview.png";
 import cart_icon from "../Assest/icon/cart-regular-24.png";
 import { Link, useNavigate } from 'react-router-dom';
-import toast from 'react-hot-toast'; // To show notifications
+import toast from 'react-hot-toast'; 
 
 function Navbar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
-  // Check login status on component mount
   useEffect(() => {
-    const token = localStorage.getItem('auth-token'); // Assuming token presence indicates login status
+    const token = localStorage.getItem('auth-token'); 
     if (token) {
       setIsLoggedIn(true);
     }
   }, []);
 
-  // Function to handle logout
   const handleLogout = () => {
-    localStorage.removeItem('auth-token'); // Remove the token from localStorage
-    setIsLoggedIn(false); // Update the state to reflect logged out status
-    toast.success('Logged out successfully', { position: 'top-right' }); // Display a success message
-    navigate('/'); // Redirect to home page or login page
+    localStorage.removeItem('auth-token'); 
+    setIsLoggedIn(false); 
+    toast.success('Logged out successfully', { position: 'top-right' }); 
+    navigate('/'); 
   };
 
   return (
@@ -43,9 +41,9 @@ function Navbar() {
           <div className="cart-count">0</div>
           <div className="login-signup">
             {isLoggedIn ? (
-              <button onClick={handleLogout}>Logout</button> // Show logout button if logged in
+              <button onClick={handleLogout}>Logout</button>
             ) : (
-              <Link to="/loginsignup">Login/Signup</Link> // Show login/signup button if not logged in
+              <Link to="/loginsignup">Login/Signup</Link>
             )}
           </div>
         </div>

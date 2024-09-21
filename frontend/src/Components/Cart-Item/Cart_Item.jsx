@@ -15,11 +15,18 @@ const Cart_Item = ({ id, qty }) => {
     const description = `${name} || ${catagori}`;
 
     const handleDelete = () => {
-        axios.post("http://localhost:4000/deleteitemcart",{id},{header : 'auth-token'}).then(response=>{
-            if(response.success){
+        const token = localStorage.getItem('auth-token'); // Fetch the token from local storage
+
+    if (!token) {
+        toast.error('You need to be logged in to delete an item.', { position: 'top-right' });
+        return;
+    }
+        axios.post("http://localhost:4000/deleteitemcart",{itemId:id},{headers :{ 'auth-token': token}}).then(response=>{
+            if(response.data.success){
                 toast.success(`Item with ID ${id} deleted from cart.`, { position: 'top-right' });
+                window.location.reload();
             } else {
-                toast.error(response.message,{position:'top-right'});
+                toast.error(response.data.message, {position:'top-right'});
             }
         }).catch(err=>{
             console.error(err);
