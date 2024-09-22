@@ -230,15 +230,15 @@ const Shop = () => {
                 </div>
             </section>
             <section id='car-book-sec'>
-                <Link className='left'>
+                <Link className='left' to={'/car-booking'}>
                     <img src={Tuer1} alt="" />
                 </Link>
-                <Link className='right'>
+                <Link className='right' to={'/car-booking'}>
                     <img src={Tuer2} alt="" />
                 </Link>
             </section>
             <section id='carBooking'>
-                <Link className='carBooking'>
+                <Link className='carBooking' to={'/car-booking'}>
                     <img src={CarBook} alt="" />
                 </Link>
             </section>

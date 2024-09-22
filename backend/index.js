@@ -100,10 +100,8 @@ app.post('/register', async (req, res) => {
             }
         };
 
-        // Generate JWT token
         const token = jwt.sign(data, 'secret_ecom', { expiresIn: '3h' });
 
-        // Respond with success message and token
         return res.status(201).json({
             success: true,
             message: "User created successfully.",

@@ -22,7 +22,6 @@ function Navbar() {
           });
           if (response.data.success) {
             setCartCount(response.data.number);
-            toast.success("Cart item count updated", { position: 'top-right' });
           } else {
             toast.error(response.data.message, { position: 'top-right' });
           }

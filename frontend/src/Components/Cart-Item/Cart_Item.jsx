@@ -38,7 +38,7 @@ const Cart_Item = ({ id, qty }) => {
         <div>
             <section className='cart-list'>
                 <div className="item">
-                    <Link to={`/product/${id}`}> 
+                    <Link to={`/item_page/${id}`}> 
                         <img src={image} alt={name} />
                     </Link>
                     <div className="decs">
