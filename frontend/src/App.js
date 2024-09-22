@@ -11,6 +11,7 @@ import CarBook from "./Pages/CarBook.jsx";
 import Bulb from './Pages/Item_Render_Page/Bulb.jsx';
 import Item_Page from './Components/Item_Page/Item_Page.jsx';
 import Order from './Pages/Order.jsx';
+import User from './Pages/User.jsx';
 import { Toaster } from 'react-hot-toast';
 
 
@@ -29,7 +30,8 @@ function App() {
           <Route path='/loginsignup' element={<LoginSignup />} />
           <Route path="/bulb/:catagori" element={<Bulb/>} /> 
           <Route path='/item_page/:id' element={<Item_Page/>} />
-          <Route path='/order/:id' element={<Order/>} />
+          <Route path='/order' element={<Order/>} />
+          <Route path='/userdasboard' element={<User/>}/>
           </Routes>
       </BrowserRouter>
     </div>

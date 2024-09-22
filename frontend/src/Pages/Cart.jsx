@@ -9,7 +9,7 @@ import all_light from '../Components/Assest/all_light.js';
 
 const Cart = () => {
     const [itemArray, setItemArray] = useState([]); 
-    const [cartItems, setCartItems] = useState([]); // Holds the complete item data
+    const [cartItems, setCartItems] = useState([]); 
     const [totalCost, setTotalCost] = useState(0);  
     const navigate = useNavigate();                
 
@@ -43,12 +43,11 @@ const Cart = () => {
     }, []); 
 
     useEffect(() => {
-        // Group items by ID and get full details
         const groupItemsById = (itemIds) => {
             const groupedItems = {};
             itemIds.forEach(id => {
                 if (groupedItems[id]) {
-                    groupedItems[id].quantity += 1; // Increase quantity for duplicates
+                    groupedItems[id].quantity += 1; 
                 } else {
                     const itemDetails = all_light.find(item => item.id === id);
                     if (itemDetails) {
@@ -62,12 +61,10 @@ const Cart = () => {
         if (itemArray.length > 0) {
             const groupedItems = groupItemsById(itemArray);
             setCartItems(groupedItems);
-            
-            // Calculate total cost
             const total = groupedItems.reduce((acc, item) => acc + (item.new_price * item.quantity), 0);
             setTotalCost(total);
         }
-    }, [itemArray]); // Update when itemArray changes
+    }, [itemArray]);
 
     const handleOrder = () => {
         const itemIds = cartItems.map(item => ({
@@ -75,7 +72,8 @@ const Cart = () => {
             quantity: item.quantity
         }));
         if (itemIds.length > 0) {
-            navigate('/order', { state: { itemIds } }); 
+            localStorage.setItem('orderCart', JSON.stringify(itemIds));
+            navigate('/order'); 
         } else {
             toast.error('No items in the cart to order.', { position: 'top-right' });
         }

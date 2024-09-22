@@ -64,6 +64,7 @@ const LoginSignup = () => {
                 setPassword('');
                 setConfirmpassword('');
                 navigate('/');  
+                window.location.reload();
             } else {
                 toast.error(result.message, { position: 'top-right' });
             }
@@ -90,6 +91,7 @@ const LoginSignup = () => {
                     localStorage.setItem('auth-token', result.token);
                     toast.success(result.message, { position: 'top-right' });
                     navigate('/');  
+                    window.location.reload();
                 } else {
                     toast.error(result.message, { position: 'top-right' });
                 }

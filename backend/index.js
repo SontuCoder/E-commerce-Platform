@@ -64,12 +64,10 @@ app.post('/register', async (req, res) => {
     try {
         const { username, email, mobile, password } = req.body;
 
-        // Check for missing fields
         if (!username || !email || !mobile || !password) {
             return res.status(400).json({ success: false, message: "All fields are required." });
         }
 
-        // Check if user already exists by email or mobile
         const existingUser = await userModel.findOne({
             $or: [
                 { email: email },
@@ -84,22 +82,18 @@ app.post('/register', async (req, res) => {
             });
         }
 
-        // Hash the password before saving
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Create new user
         const newUser = new userModel({
             username: username,
             email: email,
             mobile: mobile,
-            cartData: [], 
+            cartData: [],
             password: hashedPassword
         });
 
-        // Save user to the database
         await newUser.save();
 
-        // Create payload for JWT
         const data = {
             user: {
                 id: newUser.id
@@ -107,7 +101,7 @@ app.post('/register', async (req, res) => {
         };
 
         // Generate JWT token
-        const token = jwt.sign(data, 'secret_ecom', { expiresIn: '3h' }); 
+        const token = jwt.sign(data, 'secret_ecom', { expiresIn: '3h' });
 
         // Respond with success message and token
         return res.status(201).json({
@@ -150,14 +144,14 @@ app.post('/addtocart', async (req, res) => {
 //get Cart list
 app.get('/cartlist', async (req, res) => {
     const token = req.header('auth-token');
-    if(!token){
+    if (!token) {
         return res.json({ success: false, message: 'Login first' });
     }
     try {
         const verified = jwt.verify(token, 'secret_ecom');
         const userId = verified.user.id;
         const user = await userModel.findById(userId);
-        if(!user){
+        if (!user) {
             return res.json({ success: false, message: 'No user is found' });
         }
         const cartItems = user.cartData;
@@ -173,23 +167,22 @@ app.get('/cartlist', async (req, res) => {
 });
 
 // delete from cart
-app.post('/deleteitemcart', async(req,res)=>{
-    const {itemId} = req.body;
+app.post('/deleteitemcart', async (req, res) => {
+    const { itemId } = req.body;
     const token = req.header('auth-token');
-    console.log(token);
-    if(!token){
+    if (!token) {
         return res.json({ success: false, message: 'Login first' });
     }
     try {
         const verified = jwt.verify(token, 'secret_ecom');
         const userId = verified.user.id;
         const user = await userModel.findById(userId);
-        if(!user){
+        if (!user) {
             return res.json({ success: false, message: 'No user is found' });
         }
         const cartItems = user.cartData;
         const itemInCart = cartItems.includes(itemId);
-        if(!itemInCart){
+        if (!itemInCart) {
             return res.json({ success: false, message: 'No item is found' });
         }
         const itemIndex = cartItems.indexOf(itemId);
@@ -198,11 +191,84 @@ app.post('/deleteitemcart', async(req,res)=>{
         user.cartData = cartItems;
         await user.save();
         return res.json({ success: true, message: "Item delete from cart successfully." });
-} catch(err){
-    return res.json({ success: false, message: err });
-}
+    } catch (err) {
+        return res.json({ success: false, message: err });
+    }
 });
 
+//Count cart Items:
+
+app.get('/cartcount', async (req, res) => {
+    const token = req.header('auth-token');
+    if (!token) {
+        return res.json({ success: false, message: 'Login first' });
+    }
+    try {
+        const verified = jwt.verify(token, 'secret_ecom');
+        const userId = verified.user.id;
+        const user = await userModel.findById(userId);
+        if (!user) {
+            return res.json({ success: false, message: 'No user is found' });
+        }
+        const cartItems = user.cartData;
+        return res.json({ success: true, number: cartItems.length });
+    } catch (err) {
+        return res.json({ success: false, message: err });
+    }
+});
+
+// Fatch User Details
+app.get('/userdetails', async (req, res) => {
+    const token = req.header('auth-token');
+    if (!token) {
+        return res.json({ success: false, message: 'Login first' });
+    }
+    try {
+        const verified = jwt.verify(token, 'secret_ecom');
+        const userId = verified.user.id;
+        const user = await userModel.findById(userId);
+        if (!user) {
+            return res.json({ success: false, message: 'No user is found' });
+        }
+
+        res.json({
+            success: true,
+            user: {
+                name: user.username,
+                email: user.email,
+                number: user.mobile
+            }
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ success: false, message: 'Server error. Please try again later.' });
+    }
+});
+
+// order all cart
+
+app.post('/deleteallcart', async (req,res)=>{
+    const token = req.header('auth-token');
+    if (!token) {
+        return res.json({ success: false, message: 'Login first' });
+    }
+    try {
+        const verified = jwt.verify(token, 'secret_ecom');
+        const userId = verified.user.id;
+        const user = await userModel.findById(userId);
+        if (!user) {
+            return res.json({ success: false, message: 'No user is found' });
+        }
+
+        user.cartData = []; 
+        await user.save(); 
+        return res.json({ success: true,});
+    
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ success: false, message: 'Server error. Please try again later.' });
+    }
+})
 
 app.listen(port, (error) => {
     if (!error) {

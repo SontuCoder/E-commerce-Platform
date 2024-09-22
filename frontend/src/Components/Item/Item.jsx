@@ -1,13 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Item.css';
 import axios from 'axios';
 import all_light from '../Assest/all_light'; 
 import toast from 'react-hot-toast';
 
 const Item = ({ id }) => {
+    const navigate = useNavigate();
     const item = all_light.find(item => item.id === id);
-
     if (!item) {
         return <p>Item not found</p>; 
     }
@@ -17,7 +17,6 @@ const Item = ({ id }) => {
             toast.error('You need to be logged in to add items to the cart', { position: 'top-right' });
             return;
         }
-
         axios.post('http://localhost:4000/addtocart', {
             itemId: id
         }, {
@@ -28,6 +27,7 @@ const Item = ({ id }) => {
         .then(response => {
             if (response.data.success) {
                 toast.success('Item added to cart successfully!', { position: 'top-right' });
+                window.location.reload();
             } else {
                 toast.error(response.data.message, { position: 'top-right' });
             }
@@ -37,6 +37,12 @@ const Item = ({ id }) => {
             toast.error('Failed to add item to cart. Please try again.', { position: 'top-right' });
         });
     };
+
+    const handleOrder = () => {
+        const orderItem = { id: id, quantity: 1 };
+        localStorage.setItem('orderItem', JSON.stringify(orderItem));
+        navigate('/order');
+    }; 
 
     const { name, catagori, image, new_price, old_price } = item;
     let describe = name + ' || ' + catagori;
@@ -54,7 +60,7 @@ const Item = ({ id }) => {
                     </div>
                     <div className="item-button">
                         <button className='addcartButton' onClick={addToCart}>Add to Cart</button>
-                        <Link className='addcartButton' to={`/order/${id}`}>Order Now</Link>
+                        <button className='addcartButton' onClick={handleOrder}>Order</button>                  
                     </div>
                 </div>
             </section>

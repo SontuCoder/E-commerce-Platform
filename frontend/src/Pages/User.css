@@ -1,0 +1,33 @@
+
+.img img{
+    height: 200px;
+    border-radius: 50%;
+}
+
+#userContainer{
+    display: flex;
+    gap: 75px;
+    padding: 50px;
+}
+.details-side{
+    padding-top: 20px;
+}
+.details-side h2{
+    margin-bottom: 20px;
+    font-size: 40px;
+    font-weight: 900;
+}
+
+li h3{
+    font-weight: 800;
+    text-decoration: underline;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+li{
+    font-weight: 800;
+
+}
+
+
+

@@ -105,91 +105,91 @@ const Shop = () => {
                 <div className='items-boxs'>
                     <div className='boxs'>
                         <Link className='items' to="/bulb/Bulb">
-                            <img src={Bulb}></img>
+                            <img src={Bulb} alt='img'></img>
                         </Link>
                         <Link className='items' to="/bulb/Celling Light">
-                            <img src={Cl}></img>
+                            <img src={Cl} alt='img'></img>
                         </Link>
                         <Link className='items' to="/bulb/Chain Light">
-                            <img src={Ch}></img>
+                            <img src={Ch} alt='img'></img>
                         </Link>
                         <Link className='items'to="/bulb/Cove Light">
-                            <img src={Cv}></img>
+                            <img src={Cv} alt='img'></img>
                         </Link>
                     </div>
 
                     <div className='boxs'>
                         <Link className='items' to="/bulb/Cooler">
-                            <img src={Co}></img>
+                            <img src={Co} alt='img'></img>
                         </Link>
                         <Link className='items' to="/bulb/Fan">
-                            <img src={Cf}></img>
+                            <img src={Cf} alt='img'></img>
                         </Link>
                         <Link className='items'to="/bulb/Fan">
-                            <img src={Tf}></img>
+                            <img src={Tf} alt='img'></img>
                         </Link>
                         <Link className='items'to="/bulb/Mixcher">
-                            <img src={Mix}></img>
+                            <img src={Mix} alt='img'></img>
                         </Link>
                     </div>
 
                     <div className='boxs'>
                         <Link className='items' to="/bulb/Neon Light">
-                            <img src={Neo1}></img>
+                            <img src={Neo1} alt='img'></img>
                         </Link>
                         <Link className='items' to="/bulb/Table Light">
-                            <img src={Tl1}></img>
+                            <img src={Tl1} alt='img'></img>
                         </Link>
                         <Link className='items' to="/bulb/Table Light">
-                            <img src={Tl2}></img>
+                            <img src={Tl2} alt='img'></img>
                         </Link>
                         <Link className='items' to="/bulb/Neon Light">
-                            <img src={Neo2}></img>
+                            <img src={Neo2} alt='img'></img>
                         </Link>
                     </div>
 
                     <div className='boxs'>
                         <Link className='items' to="/bulb/Mirror">
-                            <img src={Me}></img>
+                            <img src={Me} alt='img'></img>
                         </Link>
                         <Link className='items' to="/bulb/Switch Bord">
-                            <img src={Sw}></img>
+                            <img src={Sw} alt='img'></img>
                         </Link>
                         <Link className='items' to="/bulb/TV">
-                            <img src={Tv}></img>
+                            <img src={Tv} alt='img'></img>
                         </Link>
                         <Link className='items' to="/bulb/Wire">
-                            <img src={Tar}></img>
+                            <img src={Tar} alt='img'></img>
                         </Link>
                     </div>
 
                     <div className='boxs'>
                         <Link className='items' to="/bulb/Work Equbment">
-                            <img src={Eq3}></img>
+                            <img src={Eq3} alt='img'></img>
                         </Link>
                         <Link className='items' to="/bulb/Work Equbment">
-                            <img src={Eq1}></img>
+                            <img src={Eq1} alt='img'></img>
                         </Link>
                         <Link className='items' to="/bulb/Work Equbment">
-                            <img src={Eq2}></img>
+                            <img src={Eq2} alt='img'></img>
                         </Link>
                         <Link className='items' to="/bulb/Work Equbment">
-                            <img src={Eq4}></img>
+                            <img src={Eq4} alt='img'></img>
                         </Link>
                     </div>
 
                     <div className='boxs'>
                         <Link className='items' to="/bulb/Serface Light">
-                            <img src={Sl1}></img>
+                            <img src={Sl1} alt='img'></img>
                         </Link>
                         <Link className='items' to="/bulb/Wall Light">
-                            <img src={Wl1}></img>
+                            <img src={Wl1} alt='img'></img>
                         </Link>
                         <Link className='items' to="/bulb/Wall Light">
-                            <img src={Wl2}></img>
+                            <img src={Wl2} alt='img'></img>
                         </Link>
                         <Link className='items' to="/bulb/Tube Light">
-                            <img src={Tube}></img>
+                            <img src={Tube} alt='img'></img>
                         </Link>
                     </div>
                 </div>
@@ -260,7 +260,7 @@ const Shop = () => {
                     </div>
                     <div id="third">
                         <h3>Let us Help You</h3>
-                        <p>Your Account</p>
+                        <p><Link to="/userdasboard">Your Account</Link></p>
                         <p>Help Lines</p>
                     </div>
                 </div>
