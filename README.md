@@ -1,5 +1,6 @@
 <h1>Project Title: E-commerce Platform</h1>
 <h3>By Subhadip Maity</h3>
+<h5>working on minor changes</h5>
 <h4>Project duration: 9/9/2024 - 20/09/2024</h4>
 
 <h2>Description</h2>
