@@ -26,8 +26,8 @@ const Item_Page = () => {
         })
         .then(response => {
             if (response.data.success) {
+                // window.location.reload();
                 toast.success('Item added to cart successfully!', { position: 'top-right' });
-                window.location.reload();
             } else {
                 toast.error(response.data.message, { position: 'top-right' });
             }

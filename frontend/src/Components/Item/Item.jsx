@@ -27,7 +27,7 @@ const Item = ({ id }) => {
         .then(response => {
             if (response.data.success) {
                 toast.success('Item added to cart successfully!', { position: 'top-right' });
-                window.location.reload();
+                // window.location.reload();
             } else {
                 toast.error(response.data.message, { position: 'top-right' });
             }

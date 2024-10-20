@@ -1,50 +1,29 @@
+// Navbar.jsx
 import React, { useEffect, useState } from 'react';
 import "./Navbar.css";
 import logo from "../Assest/icon/2-removebg-preview.png";
 import cart_icon from "../Assest/icon/cart-regular-24.png";
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast'; 
-import axios from 'axios';
 
 function Navbar() {
-  const [ countCart, setCartCount] = useState(0)
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchCartCount = async () => {
-      const token = localStorage.getItem('auth-token');
-      if (token) {
-        setIsLoggedIn(true);
-        try {
-          const response = await axios.get('http://localhost:4000/cartcount', {
-            headers: { 'auth-token': token }
-          });
-          if (response.data.success) {
-            setCartCount(response.data.number);
-          } else {
-            toast.error(response.data.message, { position: 'top-right' });
-          }
-        } catch (err) {
-          console.error(err);
-          toast.error('Failed to load the cart count.', { position: 'top-right' });
-        }
-      }
-    };
-
-    fetchCartCount();
+    // Check if the user is logged in
+    const token = localStorage.getItem('auth-token');
+    if (token) {
+      setIsLoggedIn(true);
+    }
   }, []);
-
 
   const handleLogout = () => {
     localStorage.removeItem('auth-token'); 
     setIsLoggedIn(false); 
     toast.success('Logged out successfully', { position: 'top-right' }); 
-    navigate('/'); 
-    window.location.reload();
+    navigate('/'); // Navigate to home after logout
   };
-
-
 
   return (
     <div className='Navbar'>
@@ -61,7 +40,6 @@ function Navbar() {
             <Link to="/about">About Us</Link>
           </div>
           <Link to="/cart"><img src={cart_icon} alt="Cart" id="cart"/></Link>
-          <div className="cart-count">{countCart}</div>
           <div className="login-signup">
             {isLoggedIn ? (
               <button onClick={handleLogout}>Logout</button>

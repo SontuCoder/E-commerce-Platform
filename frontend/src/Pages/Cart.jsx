@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Cart.css';
-import Cart_Item from "../Components/Cart-Item/Cart_Item.jsx";
+import CartItem from "../Components/Cart-Item/Cart_Item.jsx";
 import toast from 'react-hot-toast';
 import axios from 'axios';
-import all_light from '../Components/Assest/all_light.js';
-
+import alllight from '../Components/Assest/all_light.js';
 
 const Cart = () => {
     const [itemArray, setItemArray] = useState([]); 
     const [cartItems, setCartItems] = useState([]); 
     const [totalCost, setTotalCost] = useState(0);  
-    const navigate = useNavigate();                
-
+    const [totalItems, setTotalItems] = useState(0); // To keep track of total items
+    const navigate = useNavigate();                 
+    
     useEffect(() => {
         const fetchCart = async () => {
             const token = localStorage.getItem('auth-token'); 
@@ -49,7 +49,7 @@ const Cart = () => {
                 if (groupedItems[id]) {
                     groupedItems[id].quantity += 1; 
                 } else {
-                    const itemDetails = all_light.find(item => item.id === id);
+                    const itemDetails = alllight.find(item => item.id === id);
                     if (itemDetails) {
                         groupedItems[id] = { ...itemDetails, quantity: 1 };
                     }
@@ -63,6 +63,7 @@ const Cart = () => {
             setCartItems(groupedItems);
             const total = groupedItems.reduce((acc, item) => acc + (item.new_price * item.quantity), 0);
             setTotalCost(total);
+            setTotalItems(groupedItems.reduce((acc, item) => acc + item.quantity, 0)); // Update total items
         }
     }, [itemArray]);
 
@@ -79,12 +80,31 @@ const Cart = () => {
         }
     };
 
+    const handleRemove = (id) => {
+        setCartItems(prevItems => {
+            return prevItems.map(item => {
+                if (item.id === id) {
+                    if (item.quantity > 1) {
+                        const updatedQuantity = item.quantity - 1;
+                        setTotalCost(prevCost => prevCost - item.new_price); // Update total cost
+                        setTotalItems(prevCount => prevCount - 1); // Update total items
+                        return { ...item, quantity: updatedQuantity }; 
+                    }
+                    setTotalCost(prevCost => prevCost - item.new_price); // Update total cost
+                    setTotalItems(prevCount => prevCount - 1); // Update total items
+                    return null; // Remove item if quantity reaches 0
+                }
+                return item;
+            }).filter(item => item !== null); // Remove null items
+        });
+    };
+
     return (
         <div className='cart'>
             <section className='total'>
                 <div className="total-left">
                     <h3>Total Items</h3>
-                    <span id='item-no'>{itemArray.length}</span>
+                    <span id='item-no'>{totalItems}</span> {/* Display total items */}
                 </div>
                 <div className="total-mid">
                     <h3>Total Cost</h3>
@@ -104,15 +124,16 @@ const Cart = () => {
 
             {
                 cartItems.map((item) => (
-                    <Cart_Item 
+                    <CartItem 
                         key={item.id} 
                         id={item.id} 
                         qty={item.quantity} 
+                        onRemove={handleRemove}
                     />
                 ))
             }
         </div>
-    )
+    );
 }
 
 export default Cart;

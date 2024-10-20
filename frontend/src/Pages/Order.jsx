@@ -36,7 +36,7 @@ const Order = () => {
             toast.error('No valid items found for ordering.', { position: 'top-right' });
             navigate('/cart');
         }
-    }, [navigate]);
+    }, [storedOrderCart, storedOrderItem,navigate]);
 
     if (orderItems.length === 0) {
         return <p>Loading order details...</p>;
@@ -58,9 +58,9 @@ const Order = () => {
             })
                 .then(response => {
                     if (response.data.success) {
-                        toast.success('Order placed successfully!', { position: 'top-right' });
                         localStorage.removeItem('orderCart');
                         window.location.reload();
+                        toast.success('Order placed successfully!', { position: 'top-right' });
                     } else {
                         toast.error(response.data.message, { position: 'top-right' });
                     }
@@ -80,7 +80,7 @@ const Order = () => {
                 <hr />
                 {orderItems.map(item => (
                     <h3 key={item.id}>
-                        {`${item.name} || ${item.catagori} || Qty: ${item.quantity}`}
+                        {`${item.name} - ${item.catagori} - Qty: ${item.quantity}`}
                     </h3>
                 ))}
                 <hr />

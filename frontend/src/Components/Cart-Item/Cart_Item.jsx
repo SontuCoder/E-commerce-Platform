@@ -5,8 +5,9 @@ import all_light from '../Assest/all_light';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 
-const Cart_Item = ({ id, qty }) => {
+const Cart_Item = ({ id, qty, onRemove }) => {
     const item = all_light.find(light => light.id === id);
+
     if (!item) {
         return <p className="error-message">Item not found for ID: {id}</p>;
     }
@@ -15,30 +16,33 @@ const Cart_Item = ({ id, qty }) => {
     const description = `${name} || ${catagori}`;
 
     const handleDelete = () => {
-        const token = localStorage.getItem('auth-token'); // Fetch the token from local storage
+        const token = localStorage.getItem('auth-token');
 
-    if (!token) {
-        toast.error('You need to be logged in to delete an item.', { position: 'top-right' });
-        return;
-    }
-        axios.post("http://localhost:4000/deleteitemcart",{itemId:id},{headers :{ 'auth-token': token}}).then(response=>{
-            if(response.data.success){
-                toast.success(`Item with ID ${id} deleted from cart.`, { position: 'top-right' });
-                window.location.reload();
-            } else {
-                toast.error(response.data.message, {position:'top-right'});
-            }
-        }).catch(err=>{
-            console.error(err);
-            toast.error('An error occurred, please try again.', { position: 'top-right' });
-        });
+        if (!token) {
+            toast.error('You need to be logged in to delete an item.', { position: 'top-right' });
+            return;
+        }
+
+        axios.post("http://localhost:4000/deleteitemcart", { itemId: id }, { headers: { 'auth-token': token } })
+            .then(response => {
+                if (response.data.success) {
+                    toast.success(`Item with ID ${id} removed from cart.`, { position: 'top-right' });
+                    onRemove(id); // Call onRemove to update the quantity in the parent component
+                } else {
+                    toast.error(response.data.message, { position: 'top-right' });
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                toast.error('An error occurred, please try again.', { position: 'top-right' });
+            });
     };
 
     return (
         <div>
             <section className='cart-list'>
                 <div className="item">
-                    <Link to={`/item_page/${id}`}> 
+                    <Link to={`/item_page/${id}`}>
                         <img src={image} alt={name} />
                     </Link>
                     <div className="decs">
@@ -48,7 +52,7 @@ const Cart_Item = ({ id, qty }) => {
                         <p className="old-price">M.R.P: {old_price}</p>
                     </div>
                     <button className='deleteButton' onClick={handleDelete}>
-                        Delete from Cart
+                        Remove from Cart
                     </button>
                 </div>
             </section>

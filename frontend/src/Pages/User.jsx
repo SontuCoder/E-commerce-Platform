@@ -27,7 +27,7 @@ const User = () => {
                 });
 
                 if (response.data.success) {
-                    const userDetails = response.data.user; 
+                    // const userDetails = response.data.user; 
                     setName(response.data.user.name); 
                     setNumber(response.data.user.number); 
                     setEmail(response.data.user.email); 

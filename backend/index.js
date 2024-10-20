@@ -194,26 +194,6 @@ app.post('/deleteitemcart', async (req, res) => {
     }
 });
 
-//Count cart Items:
-
-app.get('/cartcount', async (req, res) => {
-    const token = req.header('auth-token');
-    if (!token) {
-        return res.json({ success: false, message: 'Login first' });
-    }
-    try {
-        const verified = jwt.verify(token, 'secret_ecom');
-        const userId = verified.user.id;
-        const user = await userModel.findById(userId);
-        if (!user) {
-            return res.json({ success: false, message: 'No user is found' });
-        }
-        const cartItems = user.cartData;
-        return res.json({ success: true, number: cartItems.length });
-    } catch (err) {
-        return res.json({ success: false, message: err });
-    }
-});
 
 // Fatch User Details
 app.get('/userdetails', async (req, res) => {
