@@ -19,7 +19,7 @@ function Navbar() {
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem('auth-token'); 
+    localStorage.clear();
     setIsLoggedIn(false); 
     toast.success('Logged out successfully', { position: 'top-right' }); 
     navigate('/'); // Navigate to home after logout

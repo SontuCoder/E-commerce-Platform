@@ -1,7 +1,9 @@
-const port = 4000;
 import express from "express";
 import cors from "cors";
 import userModel from "./models/User.js";
+import Contact from "./models/Contact.js";
+import CarBook from "./models/CarBook.js";
+import Order from "./models/Order.js";
 import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
 
@@ -9,6 +11,7 @@ const app = express();
 
 import "./Db/dbConnection.js";
 
+const port = 4000;
 app.use(express.json());
 app.use(cors());
 
@@ -223,9 +226,9 @@ app.get('/userdetails', async (req, res) => {
     }
 });
 
-// order all cart
 
-app.post('/deleteallcart', async (req,res)=>{
+// order all cart
+app.post('/deleteallcart', async (req, res) => {
     const token = req.header('auth-token');
     if (!token) {
         return res.json({ success: false, message: 'Login first' });
@@ -238,15 +241,86 @@ app.post('/deleteallcart', async (req,res)=>{
             return res.json({ success: false, message: 'No user is found' });
         }
 
-        user.cartData = []; 
-        await user.save(); 
-        return res.json({ success: true,});
-    
+        user.cartData = [];
+        await user.save();
+        return res.json({ success: true, });
+
     } catch (err) {
         console.error(err);
         res.status(500).json({ success: false, message: 'Server error. Please try again later.' });
     }
-})
+});
+
+// Contact Details Post :- 
+app.post('/contactsubmit', async (req, res) => {
+    const { name, email, phone, message } = req.body;
+
+    try {
+        // Validate input
+        if (!name || !email || !phone || !message) {
+            return res.status(400).json({
+                success: false,
+                message: "All fields are required."
+            });
+        }
+        const existingUser = await Contact.findOne({ email: email });
+
+        if (existingUser) {
+            return res.status(400).json({
+                success: false,
+                message: `User with email already exists.`
+            });
+        }
+        // Create new contact instance
+        const newContact = new Contact({
+            name,
+            email,
+            mobile: phone, // Assuming 'mobile' field in the schema
+            message
+        });
+
+        // Save to database
+        await newContact.save();
+
+        // Send success response
+        return res.status(201).json({
+            success: true,
+            message1: "Contact details saved successfully.",
+            message2: "We will contact you soon."
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Server error. Please try again later."
+        });
+    }
+});
+
+// Contact Details Fetch for Admin Panel :-
+app.get('/contactdetails',async(req,res)=>{
+    try{
+        const contacts = await Contact.find();
+        res.status(200).json(contacts);
+    } catch(err) {
+        return res.status(500).json({
+            success: false,
+            message: "Server error. Please try again later."
+        });
+    }
+});
+
+// Delete Contact Details from Db:-
+
+// CarBook Details Post :- 
+
+// CarBook Details Fetch for Admin Panel :-
+
+// Delete CarBook Details from Db :-
+
+// Order Details post in Db :-
+
+// Order Details Fetch from Db :-
 
 app.listen(port, (error) => {
     if (!error) {
