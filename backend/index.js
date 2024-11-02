@@ -271,18 +271,14 @@ app.post('/contactsubmit', async (req, res) => {
                 message: `User with email already exists.`
             });
         }
-        // Create new contact instance
         const newContact = new Contact({
             name,
             email,
-            mobile: phone, // Assuming 'mobile' field in the schema
+            mobile: phone,
             message
         });
-
-        // Save to database
         await newContact.save();
 
-        // Send success response
         return res.status(201).json({
             success: true,
             message1: "Contact details saved successfully.",
@@ -298,29 +294,231 @@ app.post('/contactsubmit', async (req, res) => {
 });
 
 // Contact Details Fetch for Admin Panel :-
-app.get('/contactdetails',async(req,res)=>{
-    try{
+app.get('/contactdetails', async (req, res) => {
+    try {
         const contacts = await Contact.find();
+
         res.status(200).json(contacts);
-    } catch(err) {
+    } catch (err) {
         return res.status(500).json({
             success: false,
-            message: "Server error. Please try again later."
+            message: "Server error. Contact Data isn't fetched."
         });
     }
 });
 
 // Delete Contact Details from Db:-
+app.post('/deletecontact', async (req, res) => {
+    const { email } = req.body;
+    try {
+        if (!email) {
+            res.status(400).json({
+                success: false,
+                message: "Email isn't Fetched."
+            });
+        }
+
+        const user = await Contact.findOne({ email });
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found."
+            });
+        }
+        await Contact.deleteOne({ email });
+        res.status(200).json({
+            success: true,
+            message: "Contact deleted successfully."
+        });
+    } catch (err) {
+        return res.status(500).json({
+            success: false,
+            message: `Server error ${err}`
+        });
+    }
+});
 
 // CarBook Details Post :- 
+app.post('/carbook', async (req, res) => {
+    const { name, pickUpPlace, destinationPlace, mobile, dateOfPickup } = req.body;
+    try {
+        if (!name || !pickUpPlace || !destinationPlace || !mobile || !dateOfPickup) {
+            return res.status(400).json({
+                success: false,
+                message: "All fields are required."
+            });
+        }
+        const user = await CarBook.findOne({ mobile });
+        if (user) {
+            return res.status(404).json({
+                success: false,
+                message: "User Already Booked."
+            });
+        }
+
+        const carbook = new CarBook({
+            name,
+            pickUpPlace,
+            destinationPlace,
+            mobile,
+            dateOfPickup
+        });
+
+        await carbook.save();
+        res.status(200).json({
+            success: true,
+            message: "CarBook saved successfully."
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: `Server error ${err}`
+        });
+    }
+});
 
 // CarBook Details Fetch for Admin Panel :-
-
+app.get('/carbookdetails', async (req, res) => {
+    try {
+        const contacts = await CarBook.find();
+        res.status(200).json(contacts);
+    } catch (err) {
+        return res.status(500).json({
+            success: false,
+            message: "Server error. Carbook Data isn't fetched."
+        });
+    }
+});
 // Delete CarBook Details from Db :-
+app.post('/deletecarbook', async (req, res) => {
+    const { mobile } = req.body;
+    try {
+        if (!mobile) {
+            res.status(400).json({
+                success: false,
+                message: "Mobile isn't Fetched."
+            });
+        }
+
+        const user = await CarBook.findOne({ mobile });
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found."
+            });
+        }
+        await CarBook.deleteOne({ mobile });
+        res.status(200).json({
+            success: true,
+            message: "Carbook deleted successfully."
+        });
+    } catch (err) {
+        return res.status(500).json({
+            success: false,
+            message: `Server error ${err}`
+        });
+    }
+});
 
 // Order Details post in Db :-
+app.post('/orderbook', async (req, res) => {
+    const { items, userName, name, email, mobile, address, landmark } = req.body;
+    try {
+        if (!items || !userName || !name || !email || !mobile || !address || !landmark) {
+            return res.status(400).json({
+                success: false,
+                message: "All fields are required."
+            });
+        }
+        const user = await Order.findOne({
+            $or: [
+                { email: email },
+                { mobile: mobile }
+            ]
+        });
+        if (user) {
+            return res.status(404).json({
+                success: false,
+                message: "One Order Booked."
+            });
+        }
 
+        const newOrder = new Order({
+            items,
+            userName,
+            name,
+            email,
+            mobile,
+            address,
+            landmark
+        });
+
+        await newOrder.save();
+        res.status(201).json({
+            success: true,
+            message: "Order placed successfully."
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: `Server error ${err}`
+        });
+    }
+});
 // Order Details Fetch from Db :-
+app.get('/orderdetails', async(req,res)=>{
+    try {
+        const orders = await Order.find();
+        res.status(200).json(orders);
+    } catch (err) {
+        return res.status(500).json({
+            success: false,
+            message: "Server error. Orders Data aren't fetched."
+        });
+    }
+});
+// Order Placed:-
+app.post('/deleteorder', async (req, res) => {
+    const { mobile,email } = req.body;
+    try {
+        if (!mobile || !email) {
+            res.status(400).json({
+                success: false,
+                message: "Mobile or Email isn't Fetched."
+            });
+        }
+
+        const user = await Order.findOne({
+            $or: [
+                { email: email },
+                { mobile: mobile }
+            ]
+        });
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found."
+            });
+        }
+        await Order.deleteOne({
+            $or: [
+            { email: email },
+            { mobile: mobile }
+        ]
+    });
+        res.status(200).json({
+            success: true,
+            message: "Order deleted successfully."
+        });
+    } catch (err) {
+        return res.status(500).json({
+            success: false,
+            message: `Server error ${err}`
+        });
+    }
+});
 
 app.listen(port, (error) => {
     if (!error) {
