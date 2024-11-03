@@ -66,6 +66,17 @@ const CarBook = () => {
         setIsPaused(false); // Resume auto-slide on mouse leave
     };
 
+    // form handle:- 
+    
+    
+    
+    
+    
+    
+    const bookCar = ()=>{
+
+    }
+
     return (
         <div className="out">
             <h1>This service under maintenance!</h1>
@@ -110,7 +121,7 @@ const CarBook = () => {
                 <input type="text" placeholder='Enter Destintion Place' required />
                 <input type="datetime" name="date-time" id="date-time" placeholder='Enter date and time(dd/mm/yy-tt)' required/>
                 <input type="number" min="0000000000" max="9999999999" placeholder='Enter mobile number'required/>
-                <button type="submit" id='car-button'>Submit</button>
+                <button type="submit" id='car-button' onClick={bookCar}>Submit</button>
                 </form>
             </div>
         </div>

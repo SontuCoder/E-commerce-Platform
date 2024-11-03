@@ -42,7 +42,7 @@ const LoginSignup = () => {
             toast.error("Password and Confirm Password must be same.", {position: "top-right"});
             return;
         }
-        if(password.length <8 ){
+        if(password.length ===8 ){
             toast.error("Password must be longer then 8", {position: "top-right"});
             return;
         }
