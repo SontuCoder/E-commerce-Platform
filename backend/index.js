@@ -456,6 +456,14 @@ app.post('/orderbook', async (req, res) => {
         });
 
         await newOrder.save();
+        const cartDeletionResponse = await axios.post('http://localhost:4000/deleteallcart', {
+            email, 
+            mobile  
+        });
+
+        if (!cartDeletionResponse.data.success) {
+            console.error("Failed to delete cart:", cartDeletionResponse.data.message);
+        }
         res.status(201).json({
             success: true,
             message: "Order placed successfully."

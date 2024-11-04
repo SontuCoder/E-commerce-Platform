@@ -2,6 +2,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import './CarBook.css';
 import s1 from '../Components/Assest/icon/Yellow Illustrative Discover India Facebook Ad.png';
 import s2 from '../Components/Assest/icon/Gray Polaroid India Travel Facebook Ad.png';
+import toast from "react-hot-toast";
+import axios from "axios";
 
 const CarBook = () => {
     const slides = [s1, s2]; // Array of slide images
@@ -66,16 +68,53 @@ const CarBook = () => {
         setIsPaused(false); // Resume auto-slide on mouse leave
     };
 
-    // form handle:- 
-    
-    
-    
-    
-    
-    
-    const bookCar = ()=>{
+    // form handle
+    const [name, setName] = useState('');
+    const [pickUpPlace, setPickUpPlace] = useState('');
+    const [destinationPlace, setDestinationPlace] = useState('');
+    const [mobile, setMobile] = useState('');
+    const [dateOfPickup, setDateOfPickup] = useState('');
 
-    }
+    const resetForm = () => {
+        setName('');
+        setPickUpPlace('');
+        setDestinationPlace('');
+        setMobile('');
+        setDateOfPickup('');
+    };
+
+    const bookCar = (e) => {
+        e.preventDefault();
+
+        if (!name || !pickUpPlace || !destinationPlace || !mobile || !dateOfPickup) {
+            toast.error('All fields are required', { position: 'top-right' });
+            return;
+        }
+
+        if (mobile.length !== 10) {
+            toast.error('Mobile number must be exactly 10 digits', { position: "top-right" });
+            return;
+        }
+    
+        axios.post('http://localhost:4000/carbook', {
+            name,
+            pickUpPlace,
+            destinationPlace,
+            mobile,
+            dateOfPickup,
+        }).then(response => {
+            const result = response.data;
+            if (result.success) {
+                toast.success(result.message, { position: 'top-right' });
+                resetForm(); // Clear fields on success
+            } else {
+                toast.error(result.message, { position: 'top-right' });
+            }
+        }).catch(err => {
+            console.error(err);
+            toast.error(`An error occurred, please try again. ${err}`, { position: 'top-right' });
+        });
+    };
 
     return (
         <div className="out">
@@ -113,15 +152,16 @@ const CarBook = () => {
                     ))}
                 </div>
             </div>
-            <figcaption>*Hover for Hole Image*</figcaption>
+            <figcaption>*Hover for Whole Image*</figcaption>
             <div className="car-book-form">
                 <h3>Fill the form for booking car</h3>
-                <form>
-                <input type="text" placeholder='Enter Pick Up Place' required />
-                <input type="text" placeholder='Enter Destintion Place' required />
-                <input type="datetime" name="date-time" id="date-time" placeholder='Enter date and time(dd/mm/yy-tt)' required/>
-                <input type="number" min="0000000000" max="9999999999" placeholder='Enter mobile number'required/>
-                <button type="submit" id='car-button' onClick={bookCar}>Submit</button>
+                <form onSubmit={bookCar}>
+                    <input type="text" placeholder='Enter Your Name' value={name} onChange={(e) => setName(e.target.value)} required />
+                    <input type="text" placeholder='Enter Pick Up Place' value={pickUpPlace} onChange={(e) => setPickUpPlace(e.target.value)} required />
+                    <input type="text" placeholder='Enter Destination Place' value={destinationPlace} onChange={(e) => setDestinationPlace(e.target.value)} required />
+                    <input type="datetime-local" name="date-time" id="date-time" value={dateOfPickup} onChange={(e) => setDateOfPickup(e.target.value)} required />
+                    <input type="number" placeholder='Enter Mobile Number' value={mobile} onChange={(e) => setMobile(e.target.value)} required />
+                    <button type="submit" id='car-button'>Submit</button>
                 </form>
             </div>
         </div>

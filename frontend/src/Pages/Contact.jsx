@@ -10,25 +10,25 @@ function Contact() {
     const [phone, setPhone] = useState('');
     const [message, setMessage] = useState('');
 
-    const submitContact = (e)=>{
+    const submitContact = (e) => {
         e.preventDefault();
 
-        if(!name || !email || !phone || !message){
+        if (!name || !email || !phone || !message) {
             toast.error('All fields are required', { position: 'top-right' });
             return;
         }
 
-        if(phone.length !==10){
+        if (phone.length !== 10) {
             toast.error('Mobile number must be exactly 10 digits', { position: "top-right" });
             return;
         }
         
-        axios.post('http://localhost:4000/contactsubmit',{
+        axios.post('http://localhost:4000/contactsubmit', {
             name,
             email,
             phone,
             message,
-        }).then(response=>{
+        }).then(response => {
             const result = response.data;
             if (result.success) {
                 toast.success(result.message1, { position: 'top-right' });
@@ -40,7 +40,7 @@ function Contact() {
             } else {
                 toast.error(result.message, { position: 'top-right' });
             }
-        }).catch(err=>{
+        }).catch(err => {
             console.error(err);
             toast.error('An error occurred, please try again.', { position: 'top-right' });
         });
@@ -56,15 +56,52 @@ function Contact() {
                 </div>
                 <div className="contact-form">
                     <form onSubmit={submitContact}>
-                        <input type="text" name="name" id="name" placeholder="Enter Your Name" onChange={(e)=>setName(e.target.value)} required />
+                        <input 
+                            type="text" 
+                            name="name" 
+                            id="name" 
+                            placeholder="Enter Your Name" 
+                            value={name}
+                            onChange={(e) => setName(e.target.value)} 
+                            required 
+                        />
                         <br />
-                        <input type="email" name="email" id="email" placeholder="Enter Your Email" onChange={(e)=>setEmail(e.target.value)} required />
+                        <input 
+                            type="email" 
+                            name="email" 
+                            id="email" 
+                            placeholder="Enter Your Email" 
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)} 
+                            required 
+                        />
                         <br />
-                        <input type="number" name="phone" id="phone" min="0000000000" max="9999999999" placeholder="Enter Your Phone Number" onChange={(e)=>setPhone(e.target.value)} required />
+                        <input 
+                            type="number" 
+                            name="phone" 
+                            id="phone" 
+                            placeholder="Enter Your Phone Number" 
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)} 
+                            required 
+                        />
                         <br />
-                        <textarea name="message" id="message" cols="40" rows="10" placeholder="Enter Your Message" onChange={(e)=>setMessage(e.target.value)}></textarea>
+                        <textarea 
+                            name="message" 
+                            id="message" 
+                            cols="40" 
+                            rows="10" 
+                            placeholder="Enter Your Message" 
+                            value={message}
+                            onChange={(e) => setMessage(e.target.value)}
+                        ></textarea>
                         <br />
-                        <input type="submit" value="Submit" className="send" id='contact-button' />
+                        <input 
+                            type="submit" 
+                            value="Submit" 
+                            className="send" 
+                            id="contact-button" 
+                        />
                     </form>
                 </div>
             </div>
