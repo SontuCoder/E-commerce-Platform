@@ -14,7 +14,7 @@ const OrderSchema = new mongoose.Schema({
             }
         }
     ],
-    userName: {
+    username: {
         type: String,
         required: true
     },
@@ -32,7 +32,7 @@ const OrderSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true,
-        maxlength: 10, 
+        maxlength: 10
     },
     address:{
         type: String,

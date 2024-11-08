@@ -1,4 +1,5 @@
 import express from "express";
+import mongoose from "mongoose";
 import cors from "cors";
 import userModel from "./models/User.js";
 import Contact from "./models/Contact.js";
@@ -6,6 +7,7 @@ import CarBook from "./models/CarBook.js";
 import Order from "./models/Order.js";
 import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
+import axios from 'axios';
 
 const app = express();
 
@@ -229,20 +231,22 @@ app.get('/userdetails', async (req, res) => {
 
 // order all cart
 app.post('/deleteallcart', async (req, res) => {
-    const token = req.header('auth-token');
-    if (!token) {
+    const { user } = req.body;
+    if (!user || !user._id) {
         return res.json({ success: false, message: 'Login first' });
     }
     try {
-        const verified = jwt.verify(token, 'secret_ecom');
-        const userId = verified.user.id;
-        const user = await userModel.findById(userId);
-        if (!user) {
-            return res.json({ success: false, message: 'No user is found' });
+        // Find the user by ID to clear the cart data
+        const userRecord = await userModel.findById(user._id);
+        if (!userRecord) {
+            return res.status(404).json({ success: false, message: 'User not found' });
         }
 
-        user.cartData = [];
-        await user.save();
+        // Clear the cartData array
+        userRecord.cartData = [];
+
+        // Save the user document with the updated cartData
+        await userRecord.save();
         return res.json({ success: true, });
 
     } catch (err) {
@@ -424,30 +428,47 @@ app.post('/deletecarbook', async (req, res) => {
 
 // Order Details post in Db :-
 app.post('/orderbook', async (req, res) => {
-    const { items, userName, name, email, mobile, address, landmark } = req.body;
+    const { items, userId, name, email, mobile, address, landmark } = req.body;
+
+    if (!items || !userId || !name || !email || !mobile || !address || !landmark) {
+        return res.status(400).json({
+            success: false,
+            message: "All fields are required."
+        });
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+        return res.status(400).json({
+            success: false,
+            message: "Invalid User ID format."
+        });
+    }
+
     try {
-        if (!items || !userName || !name || !email || !mobile || !address || !landmark) {
-            return res.status(400).json({
+        const user = await userModel.findById(userId);
+        if (!user) {
+            return res.status(404).json({
                 success: false,
-                message: "All fields are required."
+                message: "User not found."
             });
         }
-        const user = await Order.findOne({
+
+        const existingOrder = await Order.findOne({
             $or: [
                 { email: email },
                 { mobile: mobile }
             ]
         });
-        if (user) {
-            return res.status(404).json({
+
+        if (existingOrder) {
+            return res.status(400).json({
                 success: false,
-                message: "One Order Booked."
+                message: "Order with this email or mobile already exists."
             });
         }
-
         const newOrder = new Order({
             items,
-            userName,
+            username: user.username,
             name,
             email,
             mobile,
@@ -456,15 +477,18 @@ app.post('/orderbook', async (req, res) => {
         });
 
         await newOrder.save();
-        const cartDeletionResponse = await axios.post('http://localhost:4000/deleteallcart', {
-            email, 
-            mobile  
-        });
 
-        if (!cartDeletionResponse.data.success) {
-            console.error("Failed to delete cart:", cartDeletionResponse.data.message);
+        if (items.length > 1) {
+            const cartDeletionResponse = await axios.post('http://localhost:4000/deleteallcart', {
+                user
+            });
+
+            if (!cartDeletionResponse.data.success) {
+                console.error("Failed to delete cart:", cartDeletionResponse.data.message);
+            }
         }
-        res.status(201).json({
+
+        return res.status(201).json({
             success: true,
             message: "Order placed successfully."
         });
@@ -472,12 +496,15 @@ app.post('/orderbook', async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: `Server error ${err}`
+            message: `Server error: ${error.message}`
         });
     }
 });
+
+
+
 // Order Details Fetch from Db :-
-app.get('/orderdetails', async(req,res)=>{
+app.get('/orderdetails', async (req, res) => {
     try {
         const orders = await Order.find();
         res.status(200).json(orders);
@@ -490,7 +517,7 @@ app.get('/orderdetails', async(req,res)=>{
 });
 // Order Placed:-
 app.post('/deleteorder', async (req, res) => {
-    const { mobile,email } = req.body;
+    const { mobile, email } = req.body;
     try {
         if (!mobile || !email) {
             res.status(400).json({
@@ -513,10 +540,10 @@ app.post('/deleteorder', async (req, res) => {
         }
         await Order.deleteOne({
             $or: [
-            { email: email },
-            { mobile: mobile }
-        ]
-    });
+                { email: email },
+                { mobile: mobile }
+            ]
+        });
         res.status(200).json({
             success: true,
             message: "Order deleted successfully."

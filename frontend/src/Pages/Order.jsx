@@ -4,12 +4,12 @@ import all_light from '../Components/Assest/all_light';
 import './Order.css';
 import toast from 'react-hot-toast';
 import axios from 'axios';
-import jwtDecode from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode';
 
 
 const Order = () => {
     const [orderItems, setOrderItems] = useState([]);
-    const [userName, setUserName] = useState('');
+    const [userId, setUserId] = useState('');
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [mobile, setMobile] = useState('');
@@ -23,8 +23,8 @@ const Order = () => {
         const token = localStorage.getItem('auth-token');
         if (token) {
             try {
-                const decodedToken = jwtDecode(token);
-                setUserName(decodedToken.name); // Assuming the token has a 'name' field
+                setUserId(jwtDecode(token).user.id);
+                console.log(jwtDecode(token).user.id)
             } catch (error) {
                 console.error("Token decoding failed:", error);
                 toast.error('Failed to retrieve user information.', { position: 'top-right' });
@@ -65,11 +65,10 @@ const Order = () => {
             itemId: item.id,
             quantity: item.quantity,
         }));
-
         try {
             const response = await axios.post('http://localhost:4000/orderbook', {
                 items,
-                userName,
+                userId,
                 name,
                 email,
                 mobile,
@@ -77,11 +76,6 @@ const Order = () => {
                 landmark
             });
             if (response.data.success) {
-                await axios.post('http://localhost:4000/deleteallcart', {
-                    email,
-                    mobile,
-                });
-
                 localStorage.removeItem('orderCart');
                 localStorage.removeItem('orderItem');
                 toast.success('Order placed successfully!', { position: 'top-right' });
@@ -90,8 +84,7 @@ const Order = () => {
                 toast.error(response.data.message, { position: 'top-right' });
             }
         } catch (error) {
-            console.error("Order submission error:", error);
-            toast.error('Failed to place the order. Please try again.', { position: 'top-right' });
+            toast.error("Order with this email or mobile already exists.",{ position: 'top-right' });
         }
     };
 
@@ -129,6 +122,7 @@ const Order = () => {
                     placeholder='Enter Your Phone Number'
                     value={mobile}
                     onChange={(e) => setMobile(e.target.value)}
+                    maxLength={10}
                     required
                 />
 
