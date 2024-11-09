@@ -10,6 +10,7 @@ import Contact from './Pages/Contact.jsx';
 import CarBook from "./Pages/CarBook.jsx";
 import Bulb from './Pages/Item_Render_Page/Bulb.jsx';
 import ItemPage from './Components/Item_Page/Item_Page.jsx';
+import Admin from './Components/Admin/Admin.jsx'
 import Order from './Pages/Order.jsx';
 import User from './Pages/User.jsx';
 import { Toaster } from 'react-hot-toast';
@@ -31,6 +32,7 @@ function App() {
           <Route path='/' element={<Shop />} />
           <Route path='/car-booking' element={<CarBook />} />
           <Route path='/contact' element={<Contact />} />
+          <Route path='/admin-panel' element={<Admin />} />
           <Route path='/about' element={<About />} />
           <Route path="/cart" element={<Cart updateCartCount={updateCartCount} />} />
           <Route path='/loginsignup' element={<LoginSignup />} />
