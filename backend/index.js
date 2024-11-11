@@ -396,7 +396,9 @@ app.post('/carbook', async (req, res) => {
 app.get('/carbookdetails', async (req, res) => {
     try {
         const contacts = await CarBook.find();
-        res.status(200).json(contacts);
+        res.status(200).json({
+            success:true,
+            data:contacts});
     } catch (err) {
         return res.status(500).json({
             success: false,
@@ -516,7 +518,9 @@ app.post('/orderbook', async (req, res) => {
 app.get('/orderdetails', async (req, res) => {
     try {
         const orders = await Order.find();
-        res.status(200).json(orders);
+        res.status(200).json({
+            success:true,
+            data:orders});
     } catch (err) {
         return res.status(500).json({
             success: false,
