@@ -65,20 +65,21 @@ const Admin = () => {
 
     // Delete Contact
     const deleteContact = async (email, bt) => {
-        console.log("hi", bt);
-        // try {
-        //     const response = await axios.delete(`http://localhost:4000/deletecontact/${email}`);
-        //     if (response.data.success) {
-        //         if(bt){
-        //             toast.success('Contact successfully', { position: 'top-right' });
-        //         } else {
-        //             toast.success('Contact deleted successfully', { position: 'top-right' });
-        //         }
-        //         setContacts(conDetails.filter(contact => contact.email !== email));
-        //     }
-        // } catch (err) {
-        //     toast.error('Failed to delete contact.', { position: 'top-right' });
-        // }
+        try {
+            const response = await axios.delete('http://localhost:4000/deletecontact',{
+                data:{email:email}
+            });
+            if (response.data.success) {
+                if(bt){
+                    toast.success('Contact successfully', { position: 'top-right' });
+                } else {
+                    toast.success('Contact deleted successfully', { position: 'top-right' });
+                }
+                setContacts(conDetails.filter(contact => contact.email !== email));
+            }
+        } catch (err) {
+            toast.error('Failed to delete contact.', { position: 'top-right' });
+        }
     };
 
     // State CarBooks:-
@@ -102,8 +103,22 @@ const Admin = () => {
     }, []);
 
     // delete or complete carbooks:-
-    const deleteCarBooks = (id) => {
-        console.log("delete Carbboks");
+    const deleteCarBooks = async(mobile,bt)=> {
+        try {
+            const response = await axios.delete('http://localhost:4000/deletecarbook',{
+                data:{mobile:mobile}
+            });
+            if (response.data.success) {
+                if(bt){
+                    toast.success('Car service successfully', { position: 'top-right' });
+                } else {
+                    toast.success('Carbook deleted successfully', { position: 'top-right' });
+                }
+                setCarBooks(carbooks.filter(contact => contact.mobile !== mobile));
+            }
+        } catch (err) {
+            toast.error('Failed to delete carbook.', { position: 'top-right' });
+        }
     }
 
     // formate change of pickup time:-
@@ -169,17 +184,22 @@ const Admin = () => {
     }
 
     // Delete Order
-    const deleteOrder = async (id) => {
-        console.log("delete order");
-        // try {
-        //     const response = await axios.delete(`http://localhost:4000/orderdetails/${id}`);
-        //     if (response.data.success) {
-        //         toast.success('Order deleted successfully', { position: 'top-right' });
-        //         setOrders(orderDetails.filter(order => order._id !== id));
-        //     }
-        // } catch (err) {
-        //     toast.error('Failed to delete order.', { position: 'top-right' });
-        // }
+    const deleteOrder = async (id,bt) => {
+        try {
+            const response = await axios.delete('http://localhost:4000/deleteorder',{
+                data:{id}
+            });
+            if (response.data.success) {
+                if(bt){
+                    toast.success('Order delivary successfully', { position: 'top-right' });
+                } else {
+                    toast.success('Order deleted successfully', { position: 'top-right' });
+                }
+                setOrders(orderDetails.filter(order => order._id !== id));
+            }
+        } catch (err) {
+            toast.error('Failed to delete order.', { position: 'top-right' });
+        }
     };
 
     return (
@@ -315,10 +335,10 @@ const Admin = () => {
                                         <td>{carb.mobile}</td>
                                         <td>{formatDate(carb.dateOfPickup)}</td>
                                         <td className='buttons-cell'>
-                                            <button id='delete' className='action-button' onClick={() => deleteCarBooks(carb._id, false)}>
+                                            <button id='delete' className='action-button' onClick={() => deleteCarBooks(carb.mobile, false)}>
                                                 <img src={Cross} alt="Delete" />
                                             </button>
-                                            <button id='complete' className='action-button' onClick={() => deleteCarBooks(carb._id, true)}>
+                                            <button id='complete' className='action-button' onClick={() => deleteCarBooks(carb.mobile, true)}>
                                                 <img src={Correct} alt="right" />
                                             </button>
                                         </td>

@@ -322,8 +322,9 @@ app.get('/contactdetails', async (req, res) => {
 });
 
 // Delete Contact Details from Db:-
-app.post('/deletecontact', async (req, res) => {
+app.delete('/deletecontact', async (req, res) => {
     const { email } = req.body;
+    console.log(email);
     try {
         if (!email) {
             res.status(400).json({
@@ -407,7 +408,7 @@ app.get('/carbookdetails', async (req, res) => {
     }
 });
 // Delete CarBook Details from Db :-
-app.post('/deletecarbook', async (req, res) => {
+app.delete('/deletecarbook', async (req, res) => {
     const { mobile } = req.body;
     try {
         if (!mobile) {
@@ -529,39 +530,29 @@ app.get('/orderdetails', async (req, res) => {
     }
 });
 // Order Placed:-
-app.post('/deleteorder', async (req, res) => {
-    const { mobile, email } = req.body;
+app.delete('/deleteorder', async (req, res) => {
+    const { id } = req.body;
     try {
-        if (!mobile || !email) {
-            res.status(400).json({
+        if (!id) {
+            return res.status(400).json({
                 success: false,
-                message: "Mobile or Email isn't Fetched."
+                message: "id isn't Fetched."
             });
         }
 
-        const user = await Order.findOne({
-            $or: [
-                { email: email },
-                { mobile: mobile }
-            ]
-        });
-        if (!user) {
+        const deletedOrder = await Order.findByIdAndDelete(id);
+        if (!deletedOrder) {
             return res.status(404).json({
                 success: false,
                 message: "User not found."
             });
         }
-        await Order.deleteOne({
-            $or: [
-                { email: email },
-                { mobile: mobile }
-            ]
-        });
         res.status(200).json({
             success: true,
             message: "Order deleted successfully."
         });
     } catch (err) {
+        console.error('Error deleting order:', err);
         return res.status(500).json({
             success: false,
             message: `Server error ${err}`
