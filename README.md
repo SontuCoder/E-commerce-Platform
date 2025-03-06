@@ -1,79 +1,110 @@
-<h1>Project Title: E-commerce Platform</h1>
-<h3>By Subhadip Maity</h3>
-<h5>working on minor changes</h5>
-<h4>Project duration: 9/9/2024 - 20/09/2024</h4>
+# E-commerce Platform
+<img src="./frontend/public/logo.jpg" height="40px">
+By, Subhadip Maity
 
-<h2>Description</h2>
-<p>
-    This is an e-commerce platform built with the MERN stack (MongoDB, Express, React, Node.js).
-    It includes features such as cart management and order placement. The project aims to provide
-    a basic framework for building an online shopping application.
-</p>
+## Description
+This is an **e-commerce platform** built with the **MERN stack** (MongoDB, Express, React, Node.js). The platform includes features such as **cart management** and **order placement**, aiming to provide a basic framework for building an **online shopping application**.
 
-<h2>Features</h2>
-<ul>
-    <li>User authentication and authorization (Login/Register).</li>
-    <li>Add items to the cart and place orders.</li>
-    <li>View and manage orders.</li>
-</ul>
+## Table of Contents
+- [Installation](#installation)
+- [Setup Environment Variables](#setup-environment-variables)
+- [Running the Application](#running-the-application)
+- [Images](#images)
+- [Usage](#usage)
+- [Features](#features)
+- [Future Updates](#future-updates)
+- [Technologies Used](#technologies-used)
+- [Contact](#contact)
 
-<h2>Installation</h2>
-<p>To run this project locally, follow these steps:</p>
-<pre>
-    <code>
+## Installation
+To run this project locally, follow these steps:
 
-# Clone the repository
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/SontuCoder/E-commerce-Platform.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd E-commerce-Platform
+   ```
+3. Install backend dependencies:
+   ```bash
+   cd backend
+   npm install
+   ```
+4. Install frontend dependencies:
+   ```bash
+   cd ../frontend
+   npm install
+   ```
 
-git clone https://github.com/your-username/your-repo-name.git
+## Setup Environment Variables
+Create a `.env` file in the **backend** directory and add the following variables:
 
-# Navigate to the project directory
+```env
+MONGO_URI=your_mongo_connection_string
+JWT_SECRET=your_jwt_secret
+PORT=5000
+```
 
-cd your-repo-name
-
-# Install backend dependencies
-
+## Running the Application
+Start the backend server:
+```bash
 cd backend
-npm install
+nodemon start
+```
 
-# Install frontend dependencies
-
-cd ../frontend
-npm install
-</code>
-</pre>
-<h2>Setup Environment Variables</h2>
-<p>Create a <code>.env</code> file in the <code>backend</code> directory and add the following variables:</p>
-
-<h2>Running the Application</h2>
-<p>Start the backend server:</p>
-<pre>
-<code>
-cd backend
-npm start
-</code>
-</pre>
-<p>Start the frontend development server:</p>
-<pre>
-<code>
+Start the frontend development server:
+```bash
 cd frontend
-npm start
-</code>
-</pre>
-<p>
-Open your browser and go to <code>http://localhost:3000</code> to view the application.
-</p>
+cd src
+npm run start
+```
 
-<h2>Usage</h2>
-<p>
-    Navigate through the website to add items to the cart and place an order. You can create a new account or log in with existing credentials.
-</p>
+Open your browser and go to:
+```bash
+http://localhost:3000
+```
+to view the application.
 
-<h2>Future Updates</h2>
-<ul>
-    <li>Create an admin panel to view orders and manage bookings.</li>
-    <li>Implement a car booking page.</li>
-    <li>Add functionality in the admin panel to manage products, including adding and removing items from the product database.</li>
-    <li>Migrate all product data from JSON format in the assets folder to a MongoDB cloud database.</li>
-    <li>Enhance the UI/UX of the project.</li>
-    <li>Add online payment functionalities.</li>
-</ul>
+## Images
+
+- 1. Login Page
+<img src="./frontend/public/Macbook-Air-localhost (1).png" height="350px">
+
+- 2. Home Page
+<img src="./frontend/public/Screenshot 2025-03-06 212012.png" height="350px">
+
+
+## Usage
+- Create an account or log in using existing credentials.
+- Browse through the product catalog.
+- Add items to the cart.
+- Place orders with the desired products.
+- Admin can View and manage your orders from the user dashboard.
+
+## Features
+- User authentication and authorization (Login/Register)
+- Add items to the cart and place orders
+- View and manage orders
+
+## Future Updates
+- Create an **admin panel** to view and manage orders.
+- Implement a **car booking page**.
+- Add product management functionality in the admin panel.
+- Migrate product data from JSON format to **MongoDB Cloud Database**.
+- Enhance the **UI/UX** of the application.
+- Integrate **online payment** functionalities.
+
+## Technologies Used
+- MongoDB
+- Express.js
+- React.js
+- Node.js
+- Tailwind CSS
+- JWT Authentication
+
+## Contact
+- Email: [subhadipmaity792@gmail.com](mailto:subhadipmaity792@gmail.com)
+- GitHub: [SontuCoder](https://github.com/SontuCoder)
+
